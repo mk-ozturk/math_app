@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled3/Pages/HomePage.dart';
 import 'package:untitled3/Pages/DemoPage2.dart';
+import 'package:untitled3/Pages/Profile.dart';
+import 'package:untitled3/Pages/Videos.dart';
 import 'package:untitled3/themas/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -18,7 +20,11 @@ class _BottomBarState extends State<BottomBar> {
     List<Widget> _buildScreens() {
       return [
         HomePage(),
-        DemoPage2()
+        LessonsPage(),
+        VideoPage(),
+        ProfilePage(),
+
+
 
       ];
     }
@@ -27,13 +33,23 @@ class _BottomBarState extends State<BottomBar> {
       return [
         PersistentBottomNavBarItem(
           icon: Icon(CupertinoIcons.home),
-          title: ("Home"),
+          title: ("Ana Sayfa"),
           activeColorPrimary: CupertinoColors.activeBlue,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(CupertinoIcons.settings),
-          title: ("Settings"),
+          icon: Icon(CupertinoIcons.book),
+          title: ("Dersler"),
+          activeColorPrimary: CupertinoColors.activeBlue,
+          inactiveColorPrimary: CupertinoColors.systemGrey,
+        ),PersistentBottomNavBarItem(
+          icon: Icon(Icons.video_collection_outlined),
+          title: ("Videolar"),
+          activeColorPrimary: CupertinoColors.activeBlue,
+          inactiveColorPrimary: CupertinoColors.systemGrey,
+        ),PersistentBottomNavBarItem(
+          icon: Icon(CupertinoIcons.profile_circled),
+          title: ("Profil"),
           activeColorPrimary: CupertinoColors.activeBlue,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),

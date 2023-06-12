@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../themas/colors.dart';
 
-class DemoPage2 extends StatefulWidget {
-  const DemoPage2({Key? key}) : super(key: key);
+class LessonsPage extends StatefulWidget {
+  const LessonsPage({Key? key}) : super(key: key);
 
   @override
-  State<DemoPage2> createState() => _DemoPage2State();
+  State<LessonsPage> createState() => _LessonsPageState();
 }
 
-class _DemoPage2State extends State<DemoPage2> {
+class _LessonsPageState extends State<LessonsPage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
