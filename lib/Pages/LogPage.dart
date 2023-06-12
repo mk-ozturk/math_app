@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/Pages/BottomBar.dart';
 import 'package:untitled3/themas/colors.dart';
 
 class LogPage extends StatelessWidget {
@@ -37,7 +38,7 @@ class LogPage extends StatelessWidget {
           Spacer(),
           SizedBox(width: scrWidth,height: 75,
               child: ElevatedButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>LogPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomBar()));
               }, child: (Text("Giriş Yap")),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: theme().themColors[1],
