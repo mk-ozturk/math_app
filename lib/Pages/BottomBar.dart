@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled3/Pages/HomePage.dart';
 import 'package:untitled3/Pages/DemoPage2.dart';
 import 'package:untitled3/Pages/Profile.dart';
-import 'package:untitled3/Pages/Videos.dart';
+import 'package:untitled3/Pages/VideoTopicPage.dart';
 import 'package:untitled3/themas/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -21,7 +21,7 @@ class _BottomBarState extends State<BottomBar> {
       return [
         HomePage(),
         LessonsPage(),
-        VideoPage(),
+        VideoTopicPage(),
         ProfilePage(),
 
 

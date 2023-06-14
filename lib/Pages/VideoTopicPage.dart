@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:untitled3/themas/colors.dart';
 
-class VideoPage extends StatefulWidget {
-  const VideoPage({Key? key}) : super(key: key);
+class VideoTopicPage extends StatefulWidget {
+  const VideoTopicPage({Key? key}) : super(key: key);
 
   @override
-  State<VideoPage> createState() => _VideoPageState();
+  State<VideoTopicPage> createState() => _VideoTopicPageState();
 }
 
-class _VideoPageState extends State<VideoPage> {
+class _VideoTopicPageState extends State<VideoTopicPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
