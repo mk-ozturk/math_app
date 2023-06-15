@@ -13,7 +13,7 @@ class _VideoTopicPageState extends State<VideoTopicPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Videolar"),
+        title: Text("Videolarr"),
         backgroundColor: theme().themColors[4]
       ),
     );
