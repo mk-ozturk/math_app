@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/Pages/BottomBar.dart';
-import 'package:untitled3/themas/colors.dart';
+import 'package:math_app/Pages/BottomBar.dart';
+import 'package:math_app/themas/colors.dart';
 
 class LogPage extends StatelessWidget {
   const LogPage({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/themas/colors.dart';
+import 'package:math_app/themas/colors.dart';
 
 class VideoTopicPage extends StatefulWidget {
   const VideoTopicPage({Key? key}) : super(key: key);
