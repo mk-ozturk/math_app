@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_app/themas/HomaPageWidgets.dart';
 import 'package:math_app/themas/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +17,12 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: theme().themColors[4],
         title: Text("Ana Sayfa"),
       ),
-      body: Center(child:Text("Home Page")),
+      body: Column(
+        children: [
+          WelcomeSide(),
+          NotfCallender()
+        ],
+      ),
     );
   }
 }

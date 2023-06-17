@@ -4,7 +4,6 @@ import 'package:math_app/Pages/HomePage.dart';
 import 'package:math_app/Pages/DemoPage2.dart';
 import 'package:math_app/Pages/Profile.dart';
 import 'package:math_app/Pages/VideoTopicPage.dart';
-import 'package:math_app/themas/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class BottomBar extends StatefulWidget {
@@ -20,6 +19,7 @@ class _BottomBarState extends State<BottomBar> {
     List<Widget> _buildScreens() {
       return [
         HomePage(),
+        LessonsPage(),
         LessonsPage(),
         VideoTopicPage(),
         ProfilePage(),
@@ -38,6 +38,11 @@ class _BottomBarState extends State<BottomBar> {
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
         PersistentBottomNavBarItem(
+          icon: Icon(Icons.notification_add_outlined),
+          title: ("Bildirim Ayarlama"),
+          activeColorPrimary: CupertinoColors.activeGreen,
+          inactiveColorPrimary: CupertinoColors.systemGreen,
+        ),PersistentBottomNavBarItem(
           icon: Icon(CupertinoIcons.book),
           title: ("Dersler"),
           activeColorPrimary: CupertinoColors.activeBlue,
@@ -50,8 +55,8 @@ class _BottomBarState extends State<BottomBar> {
         ),PersistentBottomNavBarItem(
           icon: Icon(CupertinoIcons.profile_circled),
           title: ("Profil"),
-          activeColorPrimary: CupertinoColors.activeBlue,
-          inactiveColorPrimary: CupertinoColors.systemGrey,
+          activeColorPrimary: CupertinoColors.activeGreen,
+          inactiveColorPrimary: CupertinoColors.systemGreen,
         ),
       ];
     }
@@ -84,7 +89,7 @@ class _BottomBarState extends State<BottomBar> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style1, // Choose the nav bar style with this property.
+      navBarStyle: NavBarStyle.style9, // Choose the nav bar style with this property.
     );
   }
 }
