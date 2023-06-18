@@ -39,7 +39,7 @@ class _BottomBarState extends State<BottomBar> {
         ),
         PersistentBottomNavBarItem(
           icon: Icon(Icons.notification_add_outlined),
-          title: ("Bildirim Ayarlama"),
+          title: ("Bildirim ayarlama kısmını derslerde yapacağın sayfalara tik box olarak ekle "),
           activeColorPrimary: CupertinoColors.activeGreen,
           inactiveColorPrimary: CupertinoColors.systemGreen,
         ),PersistentBottomNavBarItem(
