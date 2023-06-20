@@ -67,11 +67,12 @@ class _VideoSuggestionState extends State<VideoSuggestion> {
       flags: YoutubePlayerFlags(
         autoPlay: false,
         mute: true,
+
       ),
     );
     return CarouselSlider(
       options: CarouselOptions(height: 200.0, aspectRatio: 16/9, autoPlay: true),
-      items: ["36fta1dYCjY",2,3,4,5].map((i) {
+      items: ["36fta1dYCjY","p2JU8tumYrI"].map((i) {
         YoutubePlayerController _controller = YoutubePlayerController(
           initialVideoId: "$i",
           flags: YoutubePlayerFlags(
@@ -79,29 +80,25 @@ class _VideoSuggestionState extends State<VideoSuggestion> {
             mute: true,
           ),
         );
-        return GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoFullScreen()));
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(horizontal: 3.0),
+                decoration: BoxDecoration(
+                   color: Colors.lightBlueAccent
+                ),
+                child: YoutubePlayer(controller: _controller,
+
+                  showVideoProgressIndicator: true,
+                  progressIndicatorColor: Colors.amber,
+                  progressColors: ProgressBarColors(
+                      playedColor: Colors.amber,
+                      handleColor: Colors.amberAccent
+                  ),
+                ),
+            );
           },
-          child: Builder(
-            builder: (BuildContext context) {
-              return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 3.0),
-                  decoration: BoxDecoration(
-                     color: Colors.lightBlueAccent
-                  ),
-                  child: YoutubePlayer(controller: _controller,
-                    showVideoProgressIndicator: true,
-                    progressIndicatorColor: Colors.amber,
-                    progressColors: ProgressBarColors(
-                        playedColor: Colors.amber,
-                        handleColor: Colors.amberAccent
-                    ),
-                  ),
-              );
-            },
-          ),
         );
       }).toList(),
     )  ;
