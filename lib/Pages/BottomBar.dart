@@ -20,7 +20,6 @@ class _BottomBarState extends State<BottomBar> {
       return [
         HomePage(),
         LessonsPage(),
-        LessonsPage(),
         VideoTopicPage(),
         ProfilePage(),
 
@@ -38,11 +37,6 @@ class _BottomBarState extends State<BottomBar> {
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(Icons.notification_add_outlined),
-          title: ("Bildirim ayarlama kısmını derslerde yapacağın sayfalara tik box olarak ekle "),
-          activeColorPrimary: CupertinoColors.activeGreen,
-          inactiveColorPrimary: CupertinoColors.systemGreen,
-        ),PersistentBottomNavBarItem(
           icon: Icon(CupertinoIcons.book),
           title: ("Dersler"),
           activeColorPrimary: CupertinoColors.activeBlue,

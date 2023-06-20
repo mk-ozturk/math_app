@@ -20,7 +20,8 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           WelcomeSide(),
-          NotfCallender()
+          NotfCallender(),
+          VideoSuggestion(),
         ],
       ),
     );

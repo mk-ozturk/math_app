@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:math_app/Pages/VideoFullScreen.dart';
 import 'colors.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class NotfCallender extends StatelessWidget {
   const NotfCallender({super.key});
@@ -59,7 +61,50 @@ class VideoSuggestion extends StatefulWidget {
 class _VideoSuggestionState extends State<VideoSuggestion> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("asda"),)  ;
+
+    YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: '36fta1dYCjY',
+      flags: YoutubePlayerFlags(
+        autoPlay: false,
+        mute: true,
+      ),
+    );
+    return CarouselSlider(
+      options: CarouselOptions(height: 200.0, aspectRatio: 16/9, autoPlay: true),
+      items: ["36fta1dYCjY",2,3,4,5].map((i) {
+        YoutubePlayerController _controller = YoutubePlayerController(
+          initialVideoId: "$i",
+          flags: YoutubePlayerFlags(
+            autoPlay: false,
+            mute: true,
+          ),
+        );
+        return GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoFullScreen()));
+          },
+          child: Builder(
+            builder: (BuildContext context) {
+              return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(horizontal: 3.0),
+                  decoration: BoxDecoration(
+                     color: Colors.lightBlueAccent
+                  ),
+                  child: YoutubePlayer(controller: _controller,
+                    showVideoProgressIndicator: true,
+                    progressIndicatorColor: Colors.amber,
+                    progressColors: ProgressBarColors(
+                        playedColor: Colors.amber,
+                        handleColor: Colors.amberAccent
+                    ),
+                  ),
+              );
+            },
+          ),
+        );
+      }).toList(),
+    )  ;
   }
 }
 
