@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_app/Pages/VideosPage.dart';
 
 import '../themas/colors.dart';
 
@@ -72,7 +73,7 @@ class SignPage extends StatelessWidget {
             SizedBox(width:scrWidth,height: 75
                 ,
                 child: ElevatedButton(onPressed: (){
-
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoPage()));
                 },child: Text("Kayıt Ol"),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: theme().themColors[0],
