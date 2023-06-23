@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:math_app/Pages/VideoList.dart';
+import 'package:math_app/Pages/VideosPage.dart';
 import 'package:math_app/themas/colors.dart';
 
-class VideoTopicPage extends StatefulWidget {
-  const VideoTopicPage({Key? key}) : super(key: key);
+class VideoList extends StatefulWidget {
+
+  String videoTopic;
+
+
+  VideoList(this.videoTopic);
 
   @override
-  State<VideoTopicPage> createState() => _VideoTopicPageState();
+  State<VideoList> createState() => _VideoListState();
 }
 
-class _VideoTopicPageState extends State<VideoTopicPage> {
+class _VideoListState extends State<VideoList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Videolar"),
-        backgroundColor: theme().themColors[4]
+        title: Text(widget.videoTopic),
+        backgroundColor: theme().themColors[4],
       ),
-      body: ListView.builder(
+      body:  ListView.builder(
         itemCount: 10, // Liste öğelerinin sayısı
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoList(index.toString())));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoPage(index.toString())));
             },
             child: Card(
               child: ListTile(

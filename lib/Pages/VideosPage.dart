@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:math_app/themas/colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-class VideoPage extends StatelessWidget {
-  const VideoPage({Key? key}) : super(key: key);
+
+class VideoPage extends StatefulWidget {
+
+  String videoTopicName;
+
+  VideoPage(this.videoTopicName);
+
 
   @override
+  State<VideoPage> createState() => _VideoPageState();
+}
+
+class _VideoPageState extends State<VideoPage> {
+  @override
   Widget build(BuildContext context) {
+
     YoutubePlayerController _controller = YoutubePlayerController(
       initialVideoId: "p2JU8tumYrI",
       flags: YoutubePlayerFlags(
@@ -13,26 +24,27 @@ class VideoPage extends StatelessWidget {
         mute: true,
       ),
     );
-    return Scaffold(
-      body: YoutubePlayerBuilder(
-        player: YoutubePlayer(
-          controller: _controller,
+
+    return  Scaffold(
+        body: YoutubePlayerBuilder(
+          player: YoutubePlayer(
+            controller: _controller,
+          ),
+          builder: (context, player){
+            return Center(
+                child: Column(
+                  children: [
+                    AppBar(
+                      title: Text(widget.videoTopicName),
+                      backgroundColor: theme().themColors[4],
+                    ),
+                    Spacer(),
+                    player,
+                    Spacer()
+                  ],)
+            );
+          }          ,
         ),
-        builder: (context, player){
-          return Center(
-            child: Column(
-              children: [
-                AppBar(
-                  title: Text("video_name"),
-                  backgroundColor: theme().themColors[4],
-                ),
-                Spacer(),
-                player,
-                Spacer()
-            ],)
-          );
-        }          ,
-      ),
-    );
+      );;
   }
 }

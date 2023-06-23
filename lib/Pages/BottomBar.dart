@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:math_app/Pages/HomePage.dart';
-import 'package:math_app/Pages/DemoPage2.dart';
+import 'package:math_app/Pages/LessonsTopicPage.dart';
 import 'package:math_app/Pages/Profile.dart';
 import 'package:math_app/Pages/VideoTopicPage.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -19,7 +19,7 @@ class _BottomBarState extends State<BottomBar> {
     List<Widget> _buildScreens() {
       return [
         HomePage(),
-        LessonsPage(),
+        LessonsTopicPage(),
         VideoTopicPage(),
         ProfilePage(),
 

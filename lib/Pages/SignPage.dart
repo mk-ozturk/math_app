@@ -73,7 +73,7 @@ class SignPage extends StatelessWidget {
             SizedBox(width:scrWidth,height: 75
                 ,
                 child: ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoPage("adasd")));
                 },child: Text("Kayıt Ol"),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: theme().themColors[0],
