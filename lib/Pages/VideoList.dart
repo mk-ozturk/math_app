@@ -31,7 +31,7 @@ class _VideoListState extends State<VideoList> {
             child: Card(
               child: ListTile(
                 title: Text('Öğe $index'), // Her öğenin başlığı
-                subtitle: Text('Konu Özetleri İçin Tıklayınız $index'), // Her öğenin açıklaması
+                subtitle: Text('Konu Özegitetleri İçin Tıklayınız $index'), // Her öğenin açıklaması
               ),
             ),
           );
