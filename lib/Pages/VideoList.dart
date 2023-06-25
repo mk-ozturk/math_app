@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_app/Pages/VideosPage.dart';
-import 'package:math_app/themas/colors.dart';
+import 'package:math_app/widgets&etc/colors.dart';
 
 class VideoList extends StatefulWidget {
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../themas/colors.dart';
+import '../widgets&etc/colors.dart';
 
 class VideoFullScreen extends StatefulWidget {
   const VideoFullScreen({super.key});

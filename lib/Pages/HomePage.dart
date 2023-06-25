@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:math_app/themas/HomaPageWidgets.dart';
-import 'package:math_app/themas/colors.dart';
+import 'package:math_app/widgets&etc/HomaPageWidgets.dart';
+import 'package:math_app/widgets&etc/colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

@@ -1,5 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:math_app/themas/colors.dart';
+import 'package:math_app/Pages/OpeningScreen.dart';
+
+import 'package:math_app/widgets&etc/colors.dart';
+
+import '../main.dart';
+import '../widgets&etc/FirebaseFuncs.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -11,6 +17,31 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+
+  //user status
+    void userStatus() {
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user == null) {
+          print('Kullanıcı oturumu kapattı');
+
+
+
+        } else {
+          print('Kullanıcı oturumu açtı: ${user.uid}');
+        }
+      });
+    }
+
+
+
+
+
+
+
+
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Hesap"),
@@ -82,7 +113,34 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: const EdgeInsets.all(20.0),
             child: GestureDetector(
                 onTap: (){
-                  print("logout çalıştı");
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: Text('Çıkış yapmak istiyor musunuz?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              print('Onaylandı');
+                              print("logout çalıştı");
+                              signOutUser();
+                              userStatus();
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OpeningScreen()));
+                            },
+                            child: Text('Evet'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              print('Reddedildi');
+                            },
+                            child: Text('Hayır'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+
                 },
                 child: Text("Çıkış Yap", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
           )

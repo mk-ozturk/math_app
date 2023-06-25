@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:math_app/themas/colors.dart';
+import 'package:math_app/widgets&etc/colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPage extends StatefulWidget {

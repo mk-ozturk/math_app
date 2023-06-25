@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:math_app/Pages/LessonsLvl.dart';
 
-import '../themas/colors.dart';
+import '../widgets&etc/colors.dart';
 
 class LessonsTopicPage extends StatefulWidget {
   const LessonsTopicPage({Key? key}) : super(key: key);
