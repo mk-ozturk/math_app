@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:math_app/Pages/LogPage.dart';
+import 'package:math_app/Pages/OpeningScreen.dart';
 import '../widgets&etc/colors.dart';
 
 class SignPage extends StatefulWidget {
@@ -28,13 +30,25 @@ class _SignPageState extends State<SignPage> {
 
 
 
-    Future<dynamic> registerUser(String email, String password) async {
+    Future<dynamic> registerUser(BuildContext context, String email, String password) async {
       try {
         // Firebase'e yeni bir kullanıcı kaydetme işlemi
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>OpeningScreen()), (route) => false);
+
+        return ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+
+              content: Padding(
+                padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+                child: Text("Kayıt oluşturuldu. Giriş Yapınız.",style: TextStyle(fontSize: 20),),
+              ),
+              backgroundColor: Colors.green,
+
+            ));
 
         // Kullanıcı başarıyla kaydedildi
       } catch (e) {
@@ -79,7 +93,7 @@ class _SignPageState extends State<SignPage> {
           } else {
             // Diğer hata durumları
             print('Hata: $errorMessage');
-            eMessage=errorMessage;
+            eMessage="Tüm alanları doldurunuz.";
             return ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
 
@@ -175,7 +189,7 @@ class _SignPageState extends State<SignPage> {
                 ,
                 child: ElevatedButton(onPressed: (){
 
-                  registerUser(_email.text, _password.text);
+                  registerUser(context,_email.text, _password.text);
 
 
                 },child: Text("Kayıt Ol"),

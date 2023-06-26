@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:math_app/Pages/BottomBar.dart';
-import 'package:math_app/widgets&etc/FirebaseFuncs.dart';
 import 'package:math_app/widgets&etc/colors.dart';
 import 'package:math_app/widgets&etc/provider.dart';
 import 'package:provider/provider.dart';
@@ -23,26 +22,15 @@ class _LogPageState extends State<LogPage> {
     TextEditingController _logPass=TextEditingController();
 
 // User sign in
-    Future<dynamic> signInUser(BuildContext context, String email, String password, bool rememberMe) async {
+    Future<dynamic> signInUser(BuildContext context, String email, String password) async {
       try {
         UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
         User? user = userCredential.user;
-        if (rememberMe) {
-          await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
-          print("remmeberme is $rememberMe");
-          print('Kullanıcı girişi yapıldı: ${user!.uid}');
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>BottomBar()), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>BottomBar()), (route) => false);
 
-        } else {
-          await FirebaseAuth.instance.setPersistence(Persistence.NONE);
-          print("remmeberme is $rememberMe");
-          print('Kullanıcı girişi yapıldı: ${user!.uid}');
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>BottomBar()), (route) => false);
-
-        }
       } catch (e) {
         if (e is FirebaseAuthException){
           String errorMessage = e.message!;
@@ -121,13 +109,13 @@ class _LogPageState extends State<LogPage> {
 
               ),
             );
-
           }
-
-
         }
       }
     }
+
+
+
 
     return ChangeNotifierProvider(
       create: (context)=> CheckboxModel(),
@@ -181,7 +169,7 @@ class _LogPageState extends State<LogPage> {
             SizedBox(height: 75,width: scrWidth,
                 child: ElevatedButton(onPressed: (){
                   print("button_working");
-                  signInUser(context,_logMail.text, _logPass.text,CheckboxModel().isChecked);
+                  signInUser(context,_logMail.text, _logPass.text);
 
 
                 }, child: (Text("Giriş Yap")),
