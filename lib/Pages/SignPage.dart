@@ -24,53 +24,82 @@ class _SignPageState extends State<SignPage> {
     var screen=MediaQuery.of(context).size;
     final scrHeight=screen.height;
     final scrWidth=screen.width;
-    String errorMessage = 'qS';
 
 
-    void registerUser(String email, String password) async {
+
+
+
+
+    Future<dynamic> registerUser(String email, String password) async {
       try {
+        // Firebase'e yeni bir kullanıcı kaydetme işlemi
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
-        User? user = userCredential.user;
-        print('Kullanıcı kaydedildi: ${user!.uid}');
+
+        // Kullanıcı başarıyla kaydedildi, işlem yapabilirsiniz
       } catch (e) {
         if (e is FirebaseAuthException) {
+          String errorMessage = e.message!;
+          String errorCode = e.code;
+          String eMessage="";
 
 
-          switch (e.code) {
-            case 'email-already-in-use':
-              errorMessage = 'Bu e-posta adresi zaten kullanılıyor.';
 
-              break;
-            case 'invalid-email':
-              errorMessage = 'Geçersiz e-posta adresi formatı.';
+          if (errorCode == 'email-already-in-use') {
+            // E-posta adresi zaten kullanımda hatası
 
-              break;
-            case 'weak-password':
-              errorMessage = 'Zayıf bir şifre kullanıldı.';
-              break;
-          // Diğer hata durumları için gerekli kodları buraya ekleyebilirsiniz
-            default:
-              errorMessage = 'Bir hata oluştu. Lütfen tekrar deneyin.';
+            eMessage='Bu e-posta adresi zaten kullanımda.';
+            print(eMessage);
+            return ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
 
-              break;
+                content: Padding(
+                  padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                ),
+                backgroundColor: theme().themColors[6],
+
+              ),
+            );
+          } else if (errorCode == 'weak-password') {
+            // Zayıf şifre hatası
+            eMessage='Daha güçlü bir şifre seçiniz';
+            eMessage=eMessage;
+            return ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+
+                content: Padding(
+                  padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                ),
+                backgroundColor: theme().themColors[6],
+
+              ),
+            );
+
+          } else {
+            // Diğer hata durumları
+            print('Hata: $errorMessage');
+            eMessage=errorMessage;
+            return ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+
+                content: Padding(
+                  padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                ),
+                backgroundColor: theme().themColors[6],
+
+              ),
+            );
+
           }
-
-          print('Hata: $errorMessage');
-
-          // Hata mesajını kullanıcıya gösterebilirsiniz
-        } else {
-          print('Bir hata oluştu: $e');
-          // Genel bir hata mesajı gösterebilirsiniz
         }
       }
+
     }
-
-
-
-
 
 
 
@@ -143,15 +172,15 @@ class _SignPageState extends State<SignPage> {
                     labelText: "Şifre"
                 ),),
             ),
-              Text(errorMessage),
+
             Spacer(),
             SizedBox(width:scrWidth,height: 75
                 ,
                 child: ElevatedButton(onPressed: (){
 
-                  setState(() {
-                    registerUser(_email.text, _password.text);
-                  });
+                  registerUser(_email.text, _password.text);
+
+
                 },child: Text("Kayıt Ol"),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: theme().themColors[0],
