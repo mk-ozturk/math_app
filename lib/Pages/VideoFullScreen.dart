@@ -15,7 +15,7 @@ class _VideoFullScreenState extends State<VideoFullScreen> {
   Widget build(BuildContext context) {
     YoutubePlayerController _controller = YoutubePlayerController(
       initialVideoId: 'iLnmTe5Q2Qw',
-      flags: YoutubePlayerFlags(
+      flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: true,
       ),

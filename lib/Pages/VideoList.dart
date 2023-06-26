@@ -7,7 +7,7 @@ class VideoList extends StatefulWidget {
   String videoTopic;
 
 
-  VideoList(this.videoTopic);
+  VideoList(this.videoTopic, {super.key});
 
   @override
   State<VideoList> createState() => _VideoListState();

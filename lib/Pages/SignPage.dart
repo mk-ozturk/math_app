@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-
 import '../widgets&etc/colors.dart';
 
 class SignPage extends StatefulWidget {
@@ -38,7 +36,7 @@ class _SignPageState extends State<SignPage> {
           password: password,
         );
 
-        // Kullanıcı başarıyla kaydedildi, işlem yapabilirsiniz
+        // Kullanıcı başarıyla kaydedildi
       } catch (e) {
         if (e is FirebaseAuthException) {
           String errorMessage = e.message!;
@@ -66,7 +64,6 @@ class _SignPageState extends State<SignPage> {
           } else if (errorCode == 'weak-password') {
             // Zayıf şifre hatası
             eMessage='Daha güçlü bir şifre seçiniz';
-            eMessage=eMessage;
             return ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
 

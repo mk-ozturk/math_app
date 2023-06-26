@@ -15,11 +15,18 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
 
+
+
+
+
+
   //user status
-    void userStatus() {
+    void userStatus(BuildContext context) {
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         if (user == null) {
-          print('Kullanıcı oturumu kapattı');
+          print('Oturum açık değil');
+
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>OpeningScreen()), (route) => false);
 
 
 
@@ -28,10 +35,6 @@ class _ProfilePageState extends State<ProfilePage> {
         }
       });
     }
-
-
-
-
 
 
 
@@ -121,9 +124,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               print('Onaylandı');
                               print("logout çalıştı");
                               signOutUser();
-                              userStatus();
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OpeningScreen()));
-                            },
+                              userStatus(context);
+                               },
                             child: Text('Evet'),
                           ),
                           TextButton(

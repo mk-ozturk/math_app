@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           WelcomeSide(),
           NotfCallender(),
-          VideoSuggestion(),
+          //VideoSuggestion(),
         ],
       ),
     );
