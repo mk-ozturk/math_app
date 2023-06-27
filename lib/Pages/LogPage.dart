@@ -18,8 +18,9 @@ class _LogPageState extends State<LogPage> {
     var screen=MediaQuery.of(context).size;
     final scrHeight=screen.height;
     final scrWidth=screen.width;
-    TextEditingController _logMail= TextEditingController();
-    TextEditingController _logPass=TextEditingController();
+    String _logMail="";
+    String _logPass="";
+    String _resPass="";
 
 // User sign in
     Future<dynamic> signInUser(BuildContext context, String email, String password) async {
@@ -115,6 +116,51 @@ class _LogPageState extends State<LogPage> {
     }
 
 
+    Future<dynamic> resPassword(String email) async {
+      try{
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+        print("$email adresine mail gönderildi");
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+
+            content: Padding(
+              padding: const EdgeInsets.only(top: 12.0,bottom: 12.4),
+              child: Text("Şifreyi sıfırlamak için mail adresini kontrol ediniz.",style: TextStyle(fontSize: 15),),
+            ),
+            backgroundColor: Colors.green,
+
+          ),
+        );
+
+      } catch(e){
+        if (e is FirebaseAuthException){
+          String errorMessage = e.message!;
+          String errorCode = e.code;
+          String eMessage="";
+          print(errorCode);
+          print(errorMessage);
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+
+                content: Padding(
+                  padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+                  child: Text("E-posta adresi bulunamadı",style: TextStyle(fontSize: 20),),
+                ),
+                backgroundColor: theme().themColors[6],
+
+              ));
+
+
+
+        }
+
+
+
+      }
+    }
+
+
 
 
     return ChangeNotifierProvider(
@@ -130,20 +176,23 @@ class _LogPageState extends State<LogPage> {
             Image.asset(width: 150,height: 150,"lib/images/flutter-2038877-1720090.png",),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextField(onChanged: (value){
-                print(value);
+              child: TextField(
+                onChanged: (valueMail){
+
+                  _logMail=valueMail;
+                print(valueMail);
               },
-                controller: _logMail,
-                decoration: InputDecoration(
+                    decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "E-posta"
                 ),),
             ),Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(onChanged: (value){
+                _logPass=value;
                 print(value);
               },
-                controller: _logPass,
+
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -152,7 +201,6 @@ class _LogPageState extends State<LogPage> {
             ),
            Row(mainAxisAlignment: MainAxisAlignment.center,
              children: [
-               Text("Giriş bilgilerimi hatırla."),
                Consumer<CheckboxModel>(
                  builder: (context, checkboxModel, child) {
                    return Checkbox(
@@ -162,14 +210,60 @@ class _LogPageState extends State<LogPage> {
                      },
                    );
                  },
-               )
+               ),
+               Text("Giriş bilgilerimi hatırla."),
+
+               TextButton(onPressed: (){
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context){
+                            return AlertDialog(
+                              content: TextField(
+                                onChanged: (value){
+                                  _resPass=value;
+                                },
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: "E-posta adresini giriniz"
+                                ),   ),
+                              actions: [
+                                Row(mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        print('Onaylandı');
+                                        print("logout çalıştı");
+                                        resPassword(_resPass);
+
+                                      },
+                                      child: Text('Şifreyi sıfırla'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        print('Reddedildi');
+                                      },
+                                      child: Text('Geri'),
+                                    ),
+
+                                  ],
+                                ),
+
+
+                              ],
+
+                            );
+
+                          });
+               },
+                   child: Text("Şifremi unuttum")),
              ],
            ),
-            Spacer(),
+            const Spacer(),
             SizedBox(height: 75,width: scrWidth,
                 child: ElevatedButton(onPressed: (){
                   print("button_working");
-                  signInUser(context,_logMail.text, _logPass.text);
+                  signInUser(context,_logMail, _logPass);
 
 
                 }, child: (Text("Giriş Yap")),

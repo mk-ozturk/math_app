@@ -13,17 +13,17 @@ class SignPage extends StatefulWidget {
 
 class _SignPageState extends State<SignPage> {
 
-  TextEditingController _id=TextEditingController();
-  TextEditingController _surname=TextEditingController();
-  TextEditingController _name=TextEditingController();
-  TextEditingController _email=TextEditingController();
-  TextEditingController _password=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var screen=MediaQuery.of(context).size;
     final scrHeight=screen.height;
     final scrWidth=screen.width;
+    String _id="";
+    String _surname="";
+    String _name="";
+    String _email="";
+    String _password="";
 
 
 
@@ -44,7 +44,7 @@ class _SignPageState extends State<SignPage> {
 
               content: Padding(
                 padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                child: Text("Kayıt oluşturuldu. Giriş Yapınız.",style: TextStyle(fontSize: 20),),
+                child: Text("Kayıt oluşturuldu. Giriş yapabilirsiniz.",style: TextStyle(fontSize: 20),),
               ),
               backgroundColor: Colors.green,
 
@@ -90,9 +90,27 @@ class _SignPageState extends State<SignPage> {
               ),
             );
 
-          } else {
+          } else if (errorCode=="invalid-email") {
             // Diğer hata durumları
             print('Hata: $errorMessage');
+            print(errorCode);
+            eMessage="Geçerli bir e-posta adresi giriniz.";
+            return ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+
+                content: Padding(
+                  padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                ),
+                backgroundColor: theme().themColors[6],
+
+              ),
+            );
+
+          }else{
+            //other errors
+            print('Hata: $errorMessage');
+            print(errorCode);
             eMessage="Tüm alanları doldurunuz.";
             return ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -105,6 +123,7 @@ class _SignPageState extends State<SignPage> {
 
               ),
             );
+
 
           }
         }
@@ -135,7 +154,9 @@ class _SignPageState extends State<SignPage> {
                   padding: const EdgeInsets.all(8),
                   child: SizedBox(width: (scrWidth-35)/2,
                     child: TextField(
-                      controller: _name,
+                      onChanged: (valueName){
+                        _name=valueName;
+                      },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: "Ad"
@@ -146,7 +167,9 @@ class _SignPageState extends State<SignPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(width: (scrWidth-35)/2,
                     child: TextField(
-                      controller: _surname,
+                      onChanged: (valueSname){
+                        _surname=valueSname;
+                      },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: "Soyad"
@@ -158,7 +181,9 @@ class _SignPageState extends State<SignPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: _email,
+                onChanged: (valueEmail){
+                  _email=valueEmail;
+                },
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "E-Posta"
@@ -167,7 +192,9 @@ class _SignPageState extends State<SignPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: _id,
+                onChanged: (valueId){
+                  _id=valueId;
+                },
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -176,7 +203,10 @@ class _SignPageState extends State<SignPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextField(controller: _password,
+              child: TextField(
+                onChanged: (valuePass){
+                  _password=valuePass;
+                },
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -189,7 +219,7 @@ class _SignPageState extends State<SignPage> {
                 ,
                 child: ElevatedButton(onPressed: (){
 
-                  registerUser(context,_email.text, _password.text);
+                  registerUser(context,_email, _password);
 
 
                 },child: Text("Kayıt Ol"),
