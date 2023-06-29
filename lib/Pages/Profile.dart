@@ -36,6 +36,29 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     }
 
+    //password reset
+    void changePassword(BuildContext context, String email) async {
+      try {
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+        print('Şifre değiştirme e-postası gönderildi.');
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+
+            content: Padding(
+              padding: const EdgeInsets.only(top: 12.0,bottom: 12.4),
+              child: Text("E-posta adresinize mail gönderildi",style: TextStyle(fontSize: 15),),
+            ),
+            backgroundColor: Colors.green,
+
+          ),
+        );
+      } catch (e) {
+
+        print('Şifre değiştirme işlemi başarısız: $e');
+      }
+    }
+
 
 
 
@@ -60,53 +83,95 @@ class _ProfilePageState extends State<ProfilePage> {
 
             ),
           ),
-          Text("İsim Soyisim",style: TextStyle(fontSize: 25),),
+          Text(getCurrentUserName().toString(),style: TextStyle(fontSize: 25),),
+          Text(getCurrentUserEmail().toString(),style: TextStyle(fontSize: 15),),
           Spacer(flex: 1,),
-          const Row(
-            children: [
-              Expanded(child: Card(child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text("E-posta Değiştir",style: TextStyle(fontSize: 20),),
-                  ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios_rounded)
-                ],
-              ),
-              )
-              ),
-            ],
+          GestureDetector(
+            onTap: (){},
+            child: const Row(
+              children: [
+                Expanded(child: Card(child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("E-posta Değiştir",style: TextStyle(fontSize: 20),),
+                    ),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios_rounded)
+                  ],
+                ),
+                )
+                ),
+              ],
+            ),
           ),
-          const Row(
-            children: [
-              Expanded(child: Card(child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text("Şifre Değiştir",style: TextStyle(fontSize: 20),),
-                  ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios_rounded)
-                ],
-              ),)),
-            ],
+           GestureDetector(
+             onTap: (){print("working buton");
+             showDialog(
+                 context: context,
+                 builder: (BuildContext context){
+                   return AlertDialog(
+                     content: const Padding(
+                       padding:  EdgeInsets.only(top:8.0),
+                       child: Text("Şifre sıfırlamak için E-posta adresinize bir mail gönderilmesini isriyor musunuz",
+                                      style: TextStyle(fontWeight: FontWeight.bold),),
+                     ),
+                     actions: [  Row(mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         TextButton(
+                           onPressed: () {
+                             print('Onaylandı');
+                             changePassword(context,getCurrentUserEmail().toString());
+                           },
+                           child: Text('Şifreyi sıfırla'),
+                         ),
+                         TextButton(
+                           onPressed: () {
+                             Navigator.of(context).pop();
+                             print('Reddedildi');
+                           },
+                           child: const Text('Geri'),
+                         ),
+
+                       ],
+                     ),],
+                   );
+
+
+                 });},
+             child: const Row(
+              children: [
+                Expanded(child: Card(child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child:Text("Şifre Değiştir",style: TextStyle(fontSize: 20))
+                    ),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios_rounded)
+                  ],
+                ),)),
+              ],
           ),
-          const Row(
-            children: [
-              Expanded(child: Card(child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text("Sorun Bildir",style: TextStyle(fontSize: 20),),
-                  ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios_rounded)
-                ],
-              ),
-              )
-              ),
-            ],
+           ),
+          GestureDetector(
+              onTap: (){},
+            child: const Row(
+              children: [
+                Expanded(child: Card(child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("Sorun Bildir",style: TextStyle(fontSize: 20),),
+                    ),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios_rounded)
+                  ],
+                ),
+                )
+                ),
+              ],
+            ),
           ),
           Spacer(flex: 4,),
           Padding(

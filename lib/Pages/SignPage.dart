@@ -30,13 +30,19 @@ class _SignPageState extends State<SignPage> {
 
 
 
-    Future<dynamic> registerUser(BuildContext context, String email, String password) async {
+    Future<dynamic> registerUser(BuildContext context, String email, String password,String name ) async {
       try {
         // Firebase'e yeni bir kullanıcı kaydetme işlemi
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
+        User? user = userCredential.user;
+        if (user != null) {
+          await user.updateDisplayName(name);
+          print('Kullanıcı kaydedildi: $name');
+        }
+
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>OpeningScreen()), (route) => false);
 
         return ScaffoldMessenger.of(context).showSnackBar(
@@ -156,6 +162,7 @@ class _SignPageState extends State<SignPage> {
                     child: TextField(
                       onChanged: (valueName){
                         _name=valueName;
+                        print(_name);
                       },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -169,6 +176,7 @@ class _SignPageState extends State<SignPage> {
                     child: TextField(
                       onChanged: (valueSname){
                         _surname=valueSname;
+                        print(_surname);
                       },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -195,8 +203,7 @@ class _SignPageState extends State<SignPage> {
                 onChanged: (valueId){
                   _id=valueId;
                 },
-                obscureText: true,
-                decoration: InputDecoration(
+                    decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Kullanıcı Adı"
                 ),),
@@ -218,8 +225,10 @@ class _SignPageState extends State<SignPage> {
             SizedBox(width:scrWidth,height: 75
                 ,
                 child: ElevatedButton(onPressed: (){
+                  String fullname=_name+" "+_surname;
+                  print(fullname);
 
-                  registerUser(context,_email, _password);
+                  registerUser(context,_email, _password,fullname);
 
 
                 },child: Text("Kayıt Ol"),

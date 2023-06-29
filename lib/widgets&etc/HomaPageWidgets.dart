@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:math_app/widgets&etc/FirebaseFuncs.dart';
 import 'colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -42,7 +43,7 @@ class WelcomeSide extends StatelessWidget {
           Column(
             children: [
             Text("Hoş Geldin"),
-            Text("İsim")
+            Text(getCurrentUserName().toString())//ilk harfler büyük olacka şekilde ayarla
           ],),
         )
       ],
