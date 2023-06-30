@@ -67,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hesap"),
+        title: Text("Hesap Ayarları"),
         backgroundColor: theme().themColors[4],
       ),
       body: Center(child:
