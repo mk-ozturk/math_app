@@ -68,7 +68,7 @@ class _SignPageState extends State<SignPage> {
           if (errorCode == 'email-already-in-use') {
             // E-posta adresi zaten kullanımda hatası
 
-            eMessage='Bu e-posta adresi zaten kullanımda.';
+            eMessage='E-posta adresi kullanımda';
             print(eMessage);
             return ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
