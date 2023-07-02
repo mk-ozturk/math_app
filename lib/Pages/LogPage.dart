@@ -173,7 +173,7 @@ class _LogPageState extends State<LogPage> {
         body: Column(
           children: [
             Spacer(),
-            Image.asset(width: 150,height: 150,"lib/images/flutter-2038877-1720090.png",),
+            Image.asset(width: 150,height: 150,"lib/images/icon.png",),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(

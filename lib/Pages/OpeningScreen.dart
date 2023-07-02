@@ -27,7 +27,7 @@ class _OpeningScreenState extends State<OpeningScreen> {
         children: [
           Spacer(),
           Column(mainAxisAlignment: MainAxisAlignment.center,
-            children: [Image.asset("lib/images/flutter-2038877-1720090.png",fit:BoxFit.cover, width: 100,height: 100,),
+            children: [Image.asset("lib/images/icon.png",fit:BoxFit.cover, width: 100,height: 100,),
             Text("Welcome to Math App"),
             ],
     ),

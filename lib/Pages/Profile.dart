@@ -76,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipOval(
-              child: Image.asset("lib/images/flutter-2038877-1720090.png",
+              child: Image.asset("lib/images/icon.png",
               width: 150,
               height: 150,
               fit: BoxFit.cover,),
