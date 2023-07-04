@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:math_app/Pages/LogPage.dart';
 import 'package:math_app/Pages/OpeningScreen.dart';
 import '../widgets&etc/colors.dart';
 
@@ -19,12 +18,14 @@ class _SignPageState extends State<SignPage> {
     var screen=MediaQuery.of(context).size;
     final scrHeight=screen.height;
     final scrWidth=screen.width;
+    var appBarHeight=AppBar().preferredSize.height;
+
+
     String _id="";
     String _surname="";
     String _name="";
     String _email="";
     String _password="";
-
 
 
 
@@ -46,10 +47,10 @@ class _SignPageState extends State<SignPage> {
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>OpeningScreen()), (route) => false);
 
         return ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
 
               content: Padding(
-                padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+                padding: EdgeInsets.only(top: 10.0,bottom: 10),
                 child: Text("Kayıt oluşturuldu. Giriş yapabilirsiniz.",style: TextStyle(fontSize: 20),),
               ),
               backgroundColor: Colors.green,
@@ -138,108 +139,128 @@ class _SignPageState extends State<SignPage> {
     }
 
 
+  //body height
+  double body(double screenW, double screenH, var appbarH){
+    if (screenW<scrHeight){
+      double bodyHeight= scrHeight-appbarH-MediaQuery.of(context).padding.top;
+      return bodyHeight;
+    }else{
+      double bodyHeight=scrWidth-appbarH-MediaQuery.of(context).padding.top;
+          return bodyHeight;}
+
+  }
 
 
-
-
-
+    
 
 
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: theme().themColors[4],
-          title: Text("Demo Page"),
-        ),
-        body: Column(
-          children: [
-            Spacer(),
-            Row(
+        backgroundColor: theme().themColors[4],
+        title: Text("Demo Page"),
+
+    ),
+        body: SingleChildScrollView(
+          child: Container(height: body(scrWidth, scrHeight, appBarHeight),
+            child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: SizedBox(width: (scrWidth-35)/2,
-                    child: TextField(
-                      onChanged: (valueName){
-                        _name=valueName;
-                        print(_name);
-                      },
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "Ad"
-                      ),),
-                  ),
+                Spacer(),
+                ClipOval(
+                  child: Image.asset(
+                      "lib/images/add_icon.png",
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.cover),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: SizedBox(width: (scrWidth-35)/2,
+                        child: TextField(
+                          onChanged: (valueName){
+                            _name=valueName;
+                            print(_name);
+                          },
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Ad"
+                          ),),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(width: (scrWidth-35)/2,
+                        child: TextField(
+                          onChanged: (valueSname){
+                            _surname=valueSname;
+                            print(_surname);
+                          },
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Soyad"
+                          ),),
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(width: (scrWidth-35)/2,
-                    child: TextField(
-                      onChanged: (valueSname){
-                        _surname=valueSname;
-                        print(_surname);
-                      },
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "Soyad"
-                      ),),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (valueEmail){
-                  _email=valueEmail;
-                },
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "E-Posta"
-                ),),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (valueId){
-                  _id=valueId;
-                },
+                  child: TextField(
+                    onChanged: (valueEmail){
+                      _email=valueEmail;
+                    },
                     decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Kullanıcı Adı"
-                ),),
+                        border: OutlineInputBorder(),
+                        labelText: "E-Posta"
+                    ),),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onChanged: (valueId){
+                      _id=valueId;
+                    },
+                        decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Kullanıcı Adı"
+                    ),),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onChanged: (valuePass){
+                      _password=valuePass;
+                    },
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Şifre"
+                    ),),
+                ),
+
+                Spacer(),
+                SizedBox(width:scrWidth,height: 75
+                    ,
+                    child: ElevatedButton(onPressed: (){
+                      String fullname=_name+" "+_surname;
+                      print(fullname);
+
+                      registerUser(context,_email, _password,fullname);
+
+
+                    },child: Text("Kayıt Ol"),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: theme().themColors[0],
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0.0)
+                          )
+                      ),))
+              ],
+
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (valuePass){
-                  _password=valuePass;
-                },
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Şifre"
-                ),),
-            ),
-
-            Spacer(),
-            SizedBox(width:scrWidth,height: 75
-                ,
-                child: ElevatedButton(onPressed: (){
-                  String fullname=_name+" "+_surname;
-                  print(fullname);
-
-                  registerUser(context,_email, _password,fullname);
-
-
-                },child: Text("Kayıt Ol"),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: theme().themColors[0],
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(0.0)
-                      )
-                  ),))
-          ],
-
+          ),
         ));
   }
 }

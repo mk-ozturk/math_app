@@ -2,9 +2,11 @@ import 'package:flutter/foundation.dart';
 
 class CheckboxModel extends ChangeNotifier {
   bool isChecked = false;
-  String _logMail = '';
+  String _logMail = "";
+  String _logPass="";
 
-  String get text => _logMail;
+  String get logPass=>_logPass;
+  String get logMail => _logMail;
 
   void toggleCheckbox() {
     isChecked = !isChecked;
@@ -12,9 +14,15 @@ class CheckboxModel extends ChangeNotifier {
   }
 
   //logpage email field provider
-  set text(String value) {
+  void textMail(String value) {
     _logMail = value;
     notifyListeners();
+      }
+
+  void textPass(String value){
+    _logPass=value;
+    notifyListeners();
+
   }
 }
 

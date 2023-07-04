@@ -6,7 +6,7 @@ import 'package:math_app/widgets&etc/provider.dart';
 import 'package:provider/provider.dart';
 
 class LogPage extends StatefulWidget {
-  const LogPage({super.key});
+
 
   @override
   State<LogPage> createState() => _LogPageState();
@@ -18,9 +18,11 @@ class _LogPageState extends State<LogPage> {
     var screen=MediaQuery.of(context).size;
     final scrHeight=screen.height;
     final scrWidth=screen.width;
-    String _logMail="";
-    String _logPass="";
+    var appBarHeight=AppBar().preferredSize.height;
     String _resPass="";
+
+
+
 
 // User sign in
     Future<dynamic> signInUser(BuildContext context, String email, String password) async {
@@ -68,7 +70,7 @@ class _LogPageState extends State<LogPage> {
             );
           }else if (errorCode =="invalid-email"){
             eMessage="E-posta biçimi yanlış";
-            print(errorCode);
+            print(errorMessage);
             return ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
 
@@ -83,7 +85,7 @@ class _LogPageState extends State<LogPage> {
 
           }else if (errorCode=="unknown"){
             eMessage="E-posta ve şifre kısmı boş bırakılamaz";
-            print(errorCode);
+            print(errorMessage);
             return ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
 
@@ -98,7 +100,7 @@ class _LogPageState extends State<LogPage> {
 
           }else{
             eMessage=errorMessage;
-            print(errorCode);
+            print(eMessage);
             return ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
 
@@ -115,7 +117,7 @@ class _LogPageState extends State<LogPage> {
       }
     }
 
-
+//password res
     Future<dynamic> resPassword(String email) async {
       try{
         await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
@@ -150,14 +152,19 @@ class _LogPageState extends State<LogPage> {
                 backgroundColor: theme().themColors[6],
 
               ));
-
-
-
         }
-
-
-
       }
+    }
+
+    //body height
+    double body(double screenW, double screenH, var appbarH){
+      if (screenW<scrHeight){
+        double bodyHeight= scrHeight-appbarH-MediaQuery.of(context).padding.top;
+        return bodyHeight;
+      }else{
+        double bodyHeight=scrWidth-appbarH-MediaQuery.of(context).padding.top;
+        return bodyHeight;}
+
     }
 
 
@@ -170,112 +177,129 @@ class _LogPageState extends State<LogPage> {
           backgroundColor: theme().themColors[4],
           title: Text("Math App"),
         ),
-        body: Column(
-          children: [
-            Spacer(),
-            Image.asset(width: 150,height: 150,"lib/images/icon.png",),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (valueMail){
+        body: SingleChildScrollView(
+          child: Container(height: body(scrWidth, scrHeight, appBarHeight),
+            child: Column(
+              children: [
+                Spacer(),
+                Image.asset(width: 150,height: 150,"lib/images/icon.png",),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Consumer<CheckboxModel>(
+                    builder: (context, providerMail, child){
+                      return TextField(
+                        onChanged: (value){
+                         providerMail.textMail(value);
+                         print(providerMail.logMail);
+                        },
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "E-posta"
+                        ),);
+                    }
+                  ),
+                ),Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Consumer<CheckboxModel>(
+                    builder: (context, providerPass, child){
+                      return TextField(
+                        onChanged: (value){
+                          providerPass.textPass(value);
+                          print(providerPass.logPass);
+                        },
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Şifre"
+                        ),);
 
-                  _logMail=valueMail;
-                print(valueMail);
-              },
-                    decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "E-posta"
-                ),),
-            ),Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(onChanged: (value){
-                _logPass=value;
-                print(value);
-              },
 
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Şifre"
-                ),),
-            ),
-           Row(mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               Consumer<CheckboxModel>(
-                 builder: (context, checkboxModel, child) {
-                   return Checkbox(
-                     value: checkboxModel.isChecked,
-                     onChanged: (value) {
-                       checkboxModel.toggleCheckbox();
+                    }
+
+                  ),
+                ),
+               Row(mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   Consumer<CheckboxModel>(
+                     builder: (context, checkboxModel, child) {
+                       return Checkbox(
+                         value: checkboxModel.isChecked,
+                         onChanged: (value) {
+                           checkboxModel.toggleCheckbox();
+                         },
+                       );
                      },
-                   );
-                 },
-               ),
-               Text("Giriş bilgilerimi hatırla."),
+                   ),
+                   Text("Giriş bilgilerimi hatırla."),
 
-               TextButton(onPressed: (){
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context){
-                            return AlertDialog(
-                              content: TextField(
-                                onChanged: (value){
-                                  _resPass=value;
-                                },
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: "E-posta adresini giriniz"
-                                ),   ),
-                              actions: [
-                                Row(mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {
-                                        print('Onaylandı');
-                                        print("logout çalıştı");
-                                        resPassword(_resPass);
+                   TextButton(onPressed: (){
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return AlertDialog(
+                                  content: TextField(
+                                    onChanged: (value){
+                                      _resPass=value;
+                                    },
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: "E-posta adresini giriniz"
+                                    ),   ),
+                                  actions: [
+                                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            print('Onaylandı');
+                                            print("respas_work");
+                                            resPassword(_resPass);
 
-                                      },
-                                      child: Text('Şifreyi sıfırla'),
+                                          },
+                                          child: Text('Şifreyi sıfırla'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            print('Reddedildi');
+                                          },
+                                          child: Text('Geri'),
+                                        ),
+
+                                      ],
                                     ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        print('Reddedildi');
-                                      },
-                                      child: Text('Geri'),
-                                    ),
-
                                   ],
-                                ),
+                                );
+                              });
+                   },
+                       child: Text("Şifremi unuttum")),
+                 ],
+               ),
+                const Spacer(),
+                Consumer<CheckboxModel>(
+                 builder: (context, textModel, child){
+                   return SizedBox(height: 75,width: scrWidth,
+                       child: ElevatedButton(onPressed: (){
+                         print("button_working");
+                         String logMail=textModel.logMail;
+                         String logPass=textModel.logPass;
+                         signInUser(context,logMail, logPass);
+                       },
+
+                           child: (Text("Giriş Yap")),
+                           style: ElevatedButton.styleFrom(
+                               backgroundColor: theme().themColors[1],
+                               shape: RoundedRectangleBorder(
+                                   borderRadius: BorderRadius.circular(0.0)
+                               )
+                           )));
+                 },
+
+                )
 
 
-                              ],
-
-                            );
-
-                          });
-               },
-                   child: Text("Şifremi unuttum")),
-             ],
-           ),
-            const Spacer(),
-            SizedBox(height: 75,width: scrWidth,
-                child: ElevatedButton(onPressed: (){
-                  print("button_working");
-                  signInUser(context,_logMail, _logPass);
-
-
-                }, child: (Text("Giriş Yap")),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: theme().themColors[1],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0.0)
-                        )
-                    ))),
-
-
-          ],
+              ],
+            ),
+          ),
         ),
 
       ),
