@@ -19,6 +19,7 @@ class _SignPageState extends State<SignPage> {
     final scrHeight=screen.height;
     final scrWidth=screen.width;
     var appBarHeight=AppBar().preferredSize.height;
+    String defaultAvatar="lib/images/add_icon.png";
 
 
     String _id="";
@@ -151,7 +152,11 @@ class _SignPageState extends State<SignPage> {
   }
 
 
-    
+    String updateData(String selectedOption) {
+      defaultAvatar=selectedOption;
+      print(defaultAvatar);
+      return defaultAvatar;
+    }
 
 
 
@@ -171,35 +176,38 @@ class _SignPageState extends State<SignPage> {
                     print("tabbed");
                     showModalBottomSheet(
                       context: context,
-                      builder: (BuildContext context) {
-                        return  MediaQuery.removePadding(
-                          context: context,
-                          removeTop: true,
-                          child: GridView.builder(
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                              ),
-                              itemCount: 300,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Card(
-                                  color: Colors.amber,
-                                  child: Center(child: Text('$index')),
-                                );
-                              }
-                          ),
+                      builder: (context) {
+                        return GridView.builder(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                            ),
+                            itemCount: theme().avatars.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: (){
+                                    Navigator.pop(context, theme().avatars[index]);
+                                  },
+                                  child: ClipOval(
+                                    child: Image.asset(theme().avatars[index]),
+                                  ),
+                                ),
+                              );
+                            }
                         );
-                      },
-                    );
 
-                    final snackBar = SnackBar(
-                      content: Text('SnackBar içeriği'),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                    ).then((selectedOption){
+                      if (selectedOption != null) {
+                        updateData(selectedOption); // Seçime göre değişiklik yapma işlevini çağırma
+                      }
+                    });
                     
                   },
                   child: ClipOval(
                     child: Image.asset(
-                        "lib/images/add_icon.png",
+                        defaultAvatar,
                         width: 150,
                         height: 150,
                         fit: BoxFit.cover),
