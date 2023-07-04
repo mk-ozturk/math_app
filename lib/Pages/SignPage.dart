@@ -166,12 +166,44 @@ class _SignPageState extends State<SignPage> {
             child: Column(
               children: [
                 Spacer(),
-                ClipOval(
-                  child: Image.asset(
-                      "lib/images/add_icon.png",
-                      width: 150,
-                      height: 150,
-                      fit: BoxFit.cover),
+                GestureDetector(
+                  onTap: (){
+                    print("tabbed");
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return  MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: GridView.builder(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                              ),
+                              itemCount: 300,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Card(
+                                  color: Colors.amber,
+                                  child: Center(child: Text('$index')),
+                                );
+                              }
+                          ),
+                        );
+                      },
+                    );
+
+                    final snackBar = SnackBar(
+                      content: Text('SnackBar içeriği'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    
+                  },
+                  child: ClipOval(
+                    child: Image.asset(
+                        "lib/images/add_icon.png",
+                        width: 150,
+                        height: 150,
+                        fit: BoxFit.cover),
+                  ),
                 ),
                 Row(
                   children: [
