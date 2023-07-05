@@ -184,7 +184,7 @@ class _SignPageState extends State<SignPage> {
                             itemCount: theme().avatars.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: GestureDetector(
                                   onTap: (){
                                     Navigator.pop(context, theme().avatars[index]);
