@@ -152,12 +152,13 @@ class _SignPageState extends State<SignPage> {
   }
 
 
-    String updateData(String selectedOption) {
-      defaultAvatar=selectedOption;
+    void updateData(String selectedOption) {
+      setState(() {
+        defaultAvatar = selectedOption;
+      });
       print(defaultAvatar);
-      return defaultAvatar;
-    }
 
+    }
 
 
     return Scaffold(
@@ -173,9 +174,14 @@ class _SignPageState extends State<SignPage> {
                 Spacer(),
                 GestureDetector(
                   onTap: (){
-                    print("tabbed");
+                    print("tabbd");
                     showModalBottomSheet(
                       context: context,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(0)
+                        )
+                      ),
                       builder: (context) {
                         return GridView.builder(
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -190,7 +196,10 @@ class _SignPageState extends State<SignPage> {
                                     Navigator.pop(context, theme().avatars[index]);
                                   },
                                   child: ClipOval(
-                                    child: Image.asset(theme().avatars[index]),
+                                    child: Image.asset(
+                                      theme().avatars[index],
+                                      ),
+
                                   ),
                                 ),
                               );
@@ -203,7 +212,7 @@ class _SignPageState extends State<SignPage> {
                         updateData(selectedOption); // Seçime göre değişiklik yapma işlevini çağırma
                       }
                     });
-                    
+
                   },
                   child: ClipOval(
                     child: Image.asset(
