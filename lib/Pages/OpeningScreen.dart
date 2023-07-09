@@ -21,7 +21,7 @@ class _OpeningScreenState extends State<OpeningScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme().themColors[4],
-        title: Text("Demo Page"),
+
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.center,
         children: [

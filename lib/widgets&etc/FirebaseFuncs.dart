@@ -28,7 +28,7 @@ String? getCurrentUserEmail() {
 
 
 //user name
-String? getCurrentUserName() {
+String? getCurrentUserName()   {
   User? user = FirebaseAuth.instance.currentUser;
   String? displayName = user?.displayName;
   return displayName;

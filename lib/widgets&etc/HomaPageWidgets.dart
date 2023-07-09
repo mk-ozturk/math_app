@@ -34,7 +34,7 @@ class WelcomeSide extends StatelessWidget {
     return Row(mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ClipOval(
-          child: Image.asset("lib/images/icon.png",
+          child: Image.asset(getCurrentUserProfilePhoto().toString(),
             width: 150,
             height: 150,
             fit: BoxFit.cover,),
@@ -43,7 +43,7 @@ class WelcomeSide extends StatelessWidget {
           Column(
             children: [
             Text("Hoş Geldin"),
-            Text(getCurrentUserName().toString())//ilk harfler büyük olacka şekilde ayarla
+            Text(getCurrentUserName().toString())
           ],),
         )
       ],
@@ -51,12 +51,20 @@ class WelcomeSide extends StatelessWidget {
   }
 }
 
+
+
+
+
 class VideoSuggestion extends StatefulWidget {
   const VideoSuggestion({super.key});
 
   @override
   State<VideoSuggestion> createState() => _VideoSuggestionState();
 }
+
+
+
+
 
 class _VideoSuggestionState extends State<VideoSuggestion> {
   @override

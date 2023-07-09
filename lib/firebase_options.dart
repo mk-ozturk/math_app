@@ -64,6 +64,6 @@ class DefaultFirebaseOptions {
     projectId: 'mathapp-bdaae',
     storageBucket: 'mathapp-bdaae.appspot.com',
     iosClientId: '78516389512-5on1ljta772khpoog1n0243spvv7reta.apps.googleusercontent.com',
-    iosBundleId: 'com.appfrommk.untitled3',
+    iosBundleId: 'com.appfrommk.math_app',
   );
 }

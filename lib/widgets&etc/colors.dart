@@ -13,7 +13,7 @@ class theme {
             Color.fromRGBO(208, 52, 44, 1.0),
    ];
 
- List avatars= [
+ var avatars= [
    "lib/images/batman.png",
    "lib/images/bear.png",
    "lib/images/chicken.png",

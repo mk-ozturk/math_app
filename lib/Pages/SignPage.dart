@@ -19,7 +19,7 @@ class _SignPageState extends State<SignPage> {
     final scrHeight=screen.height;
     final scrWidth=screen.width;
     var appBarHeight=AppBar().preferredSize.height;
-    String defaultAvatar="lib/images/add_icon.png";
+    var defaultAvatar="lib/images/add_icon.png";
 
 
     String _id="";
@@ -30,21 +30,29 @@ class _SignPageState extends State<SignPage> {
 
 
 
+    void updateData(String selectedOption) {
+      setState(() {
+        defaultAvatar = selectedOption;
+      });
+      print(defaultAvatar);
+    }
 
-
-    Future<dynamic> registerUser(BuildContext context, String email, String password,String name ) async {
+    Future<dynamic> registerUser(BuildContext context, String email, String password,String name, String pPhoto) async {
       try {
-        // Firebase'e yeni bir kullanıcı kaydetme işlemi
+        // User sing-up
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
         User? user = userCredential.user;
         if (user != null) {
+
+          await userCredential.user?.updatePhotoURL(pPhoto);
           await user.updateDisplayName(name);
           print('Kullanıcı kaydedildi: $name');
         }
 
+        print(pPhoto);
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>OpeningScreen()), (route) => false);
 
         return ScaffoldMessenger.of(context).showSnackBar(
@@ -152,19 +160,11 @@ class _SignPageState extends State<SignPage> {
   }
 
 
-    void updateData(String selectedOption) {
-      setState(() {
-        defaultAvatar = selectedOption;
-      });
-      print(defaultAvatar);
-
-    }
-
 
     return Scaffold(
         appBar: AppBar(
         backgroundColor: theme().themColors[4],
-        title: Text("Demo Page"),
+        title: Text("Üye Ol"),
 
     ),
         body: SingleChildScrollView(
@@ -173,53 +173,46 @@ class _SignPageState extends State<SignPage> {
               children: [
                 Spacer(),
                 GestureDetector(
-                  onTap: (){
-                    print("tabbd");
+                  onTap: () {
+                    print("tabbed");
                     showModalBottomSheet(
                       context: context,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(0)
-                        )
-                      ),
+                          borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(0))),
                       builder: (context) {
                         return GridView.builder(
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,
                             ),
-                            itemCount: theme().avatars.length,
+                            itemCount:  theme().avatars.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: const EdgeInsets.all(7.0),
                                 child: GestureDetector(
-                                  onTap: (){
-                                    Navigator.pop(context, theme().avatars[index]);
+                                  onTap: () {
+                                    Navigator.pop(context,  theme().avatars[index]);
                                   },
                                   child: ClipOval(
                                     child: Image.asset(
                                       theme().avatars[index],
-                                      ),
-
+                                    ),
                                   ),
                                 ),
                               );
-                            }
-                        );
-
+                            });
                       },
-                    ).then((selectedOption){
+                    ).then((selectedOption) {
                       if (selectedOption != null) {
-                        updateData(selectedOption); // Seçime göre değişiklik yapma işlevini çağırma
+                        updateData(
+                            selectedOption); // Seçime göre değişiklik yapma işlevini çağırma
                       }
                     });
-
                   },
                   child: ClipOval(
-                    child: Image.asset(
-                        defaultAvatar,
-                        width: 150,
-                        height: 150,
-                        fit: BoxFit.cover),
+                    child: Image.asset(defaultAvatar,
+                        width: 150, height: 150, fit: BoxFit.cover),
                   ),
                 ),
                 Row(
@@ -296,7 +289,7 @@ class _SignPageState extends State<SignPage> {
                       String fullname=_name+" "+_surname;
                       print(fullname);
 
-                      registerUser(context,_email, _password,fullname);
+                      registerUser(context,_email, _password,fullname, defaultAvatar);
 
 
                     },child: Text("Kayıt Ol"),
