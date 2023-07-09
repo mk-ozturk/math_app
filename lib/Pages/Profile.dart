@@ -76,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipOval(
-              child: Image.asset("lib/images/icon.png",
+              child: Image.asset(getCurrentUserProfilePhoto().toString(),
               width: 150,
               height: 150,
               fit: BoxFit.cover,),
@@ -113,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                    return AlertDialog(
                      content: const Padding(
                        padding:  EdgeInsets.only(top:8.0),
-                       child: Text("Şifre sıfırlamak için E-posta adresinize bir mail gönderilmesini isriyor musunuz",
+                       child: Text("Şifre sıfırlamak için E-posta adresinize bir mail gönderilmesini istiyor musunuz?",
                                       style: TextStyle(fontWeight: FontWeight.bold),),
                      ),
                      actions: [  Row(mainAxisAlignment: MainAxisAlignment.center,
