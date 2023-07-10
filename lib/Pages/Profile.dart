@@ -86,25 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Text(getCurrentUserName().toString(),style: TextStyle(fontSize: 25),),
           Text(getCurrentUserEmail().toString(),style: TextStyle(fontSize: 15),),
           Spacer(flex: 1,),
-          GestureDetector(
-            onTap: (){},
-            child: const Row(
-              children: [
-                Expanded(child: Card(child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text("E-posta Değiştir",style: TextStyle(fontSize: 20),),
-                    ),
-                    Spacer(),
-                    Icon(Icons.arrow_forward_ios_rounded)
-                  ],
-                ),
-                )
-                ),
-              ],
-            ),
-          ),
+
            GestureDetector(
              onTap: (){print("working buton");
              showDialog(
