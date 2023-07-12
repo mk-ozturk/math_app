@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class CheckboxModel extends ChangeNotifier {
+class LogPageProvider extends ChangeNotifier {
   bool isChecked = false;
   String _logMail = "";
   String _logPass="";
@@ -10,10 +10,7 @@ class CheckboxModel extends ChangeNotifier {
   String get logMail => _logMail;
 
 
-  void toggleCheckbox() {
-    isChecked = !isChecked;
-    notifyListeners();
-  }
+
 
   //logpage email field provider
   void textMail(String value) {
@@ -32,15 +29,45 @@ class CheckboxModel extends ChangeNotifier {
 
 class AvatarModel extends ChangeNotifier {
   String _ppLink="lib/images/add_icon.png";
+  var _eMail;
+  var _password;
+  var _name;
+  var _surname;
 
   String get ppLink => _ppLink;
+  String get eMail => _eMail;
+  String get password => _password;
+  String get name => _name;
+  String get surname => _surname;
 
   void avatarLink(String value){
-
     _ppLink=value;
     notifyListeners();
-
   }
+
+  void emailText (String value){
+    _eMail=value;
+    notifyListeners();
+  }
+
+  void passwordText (String value){
+    _password=value;
+    notifyListeners();
+  }
+
+  void nameText (String value){
+    _name=value;
+    notifyListeners();
+  }
+
+  void surnameText (String value){
+    _surname=value;
+    notifyListeners();
+  }
+
+
+
+
 
 }
 

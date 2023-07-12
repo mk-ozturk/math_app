@@ -159,7 +159,7 @@ class _SignPageState extends State<SignPage> {
 
 
     return ChangeNotifierProvider(
-        create: (context)=> CheckboxModel(),
+        create: (context)=> LogPageProvider(),
         child: Scaffold(
             appBar: AppBar(
               backgroundColor: theme().themColors[4],
@@ -226,43 +226,56 @@ class _SignPageState extends State<SignPage> {
                         Padding(
                           padding: const EdgeInsets.all(8),
                           child: SizedBox(width: (scrWidth-35)/2,
-                            child: TextField(
-                              onChanged: (valueName){
-                                _name=valueName;
-                                print(_name);
+                            child: Consumer<AvatarModel>(
+                              builder: (context, signModel, child){
+                                return TextField(
+                                  onChanged: (valueName){
+                                    signModel.nameText(valueName);
+                                    print(signModel.name);
+                                  },
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: "Ad"
+                                  ),);
                               },
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: "Ad"
-                              ),),
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(width: (scrWidth-35)/2,
-                            child: TextField(
-                              onChanged: (valueSname){
-                                _surname=valueSname;
-                                print(_surname);
+                            child: Consumer<AvatarModel>(
+                              builder: (context, signModel, child){
+                                return TextField(
+                                  onChanged: (valueSurname){
+                                    signModel.surnameText(valueSurname);
+                                    print(signModel.surname);
+                                  },
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: "Soyad"
+                                  ),);
                               },
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: "Soyad"
-                              ),),
+                            ),
                           ),
                         ),
                       ],
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        onChanged: (valueEmail){
-                          _email=valueEmail;
+                      child: Consumer<AvatarModel>(
+                        builder: (context, signModel, child){
+                          return TextField(
+                            onChanged: (value){
+                              signModel.emailText(value);
+                              print(signModel.eMail);
+                            },
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: "E-posta"
+                            ),);
                         },
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "E-Posta"
-                        ),),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -277,15 +290,20 @@ class _SignPageState extends State<SignPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        onChanged: (valuePass){
-                          _password=valuePass;
+                      child: Consumer<AvatarModel>(
+                        builder: (context, signModel, chid){
+                          return TextField(
+                            onChanged: (value){
+                              signModel.passwordText(value);
+                              print(signModel.password);
+                            },
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: "Şifre"
+                            ),);
                         },
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "Şifre"
-                        ),),
+                      ),
                     ),
 
                     Spacer(),
@@ -294,10 +312,10 @@ class _SignPageState extends State<SignPage> {
                         child: Consumer<AvatarModel>(
                           builder: (context, avatarProvider, child){
                             return ElevatedButton(onPressed: (){
-                              String fullname=_name+" "+_surname;
+                              String fullname=avatarProvider.name+" "+avatarProvider.surname;
                               print(fullname);
 
-                              registerUser(context,_email, _password,fullname, avatarProvider.ppLink);
+                              registerUser(context,avatarProvider.eMail, avatarProvider.password,fullname, avatarProvider.ppLink);
 
 
                             },child: Text("Kayıt Ol"),

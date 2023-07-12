@@ -171,7 +171,7 @@ class _LogPageState extends State<LogPage> {
 
 
     return ChangeNotifierProvider(
-      create: (context)=> CheckboxModel(),
+      create: (context)=> LogPageProvider(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: theme().themColors[4],
@@ -185,7 +185,7 @@ class _LogPageState extends State<LogPage> {
                 Image.asset(width: 150,height: 150,"lib/images/icon.png",),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Consumer<CheckboxModel>(
+                  child: Consumer<LogPageProvider>(
                     builder: (context, providerMail, child){
                       return TextField(
                         onChanged: (value){
@@ -200,7 +200,7 @@ class _LogPageState extends State<LogPage> {
                   ),
                 ),Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Consumer<CheckboxModel>(
+                  child: Consumer<LogPageProvider>(
                     builder: (context, providerPass, child){
                       return TextField(
                         onChanged: (value){
@@ -218,64 +218,48 @@ class _LogPageState extends State<LogPage> {
 
                   ),
                 ),
-               Row(mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                   Consumer<CheckboxModel>(
-                     builder: (context, checkboxModel, child) {
-                       return Checkbox(
-                         value: checkboxModel.isChecked,
-                         onChanged: (value) {
-                           checkboxModel.toggleCheckbox();
-                         },
-                       );
-                     },
-                   ),
-                   Text("Giriş bilgilerimi hatırla."),
+               TextButton(onPressed: (){
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context){
+                            return AlertDialog(
+                              content: TextField(
+                                onChanged: (value){
+                                  _resPass=value;
+                                },
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: "E-posta adresini giriniz"
+                                ),   ),
+                              actions: [
+                                Row(mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        print('Onaylandı');
+                                        print("respas_work");
+                                        resPassword(_resPass);
 
-                   TextButton(onPressed: (){
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context){
-                                return AlertDialog(
-                                  content: TextField(
-                                    onChanged: (value){
-                                      _resPass=value;
-                                    },
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        labelText: "E-posta adresini giriniz"
-                                    ),   ),
-                                  actions: [
-                                    Row(mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        TextButton(
-                                          onPressed: () {
-                                            print('Onaylandı');
-                                            print("respas_work");
-                                            resPassword(_resPass);
-
-                                          },
-                                          child: Text('Şifreyi sıfırla'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            print('Reddedildi');
-                                          },
-                                          child: Text('Geri'),
-                                        ),
-
-                                      ],
+                                      },
+                                      child: Text('Şifreyi sıfırla'),
                                     ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        print('Reddedildi');
+                                      },
+                                      child: Text('Geri'),
+                                    ),
+
                                   ],
-                                );
-                              });
-                   },
-                       child: Text("Şifremi unuttum")),
-                 ],
-               ),
+                                ),
+                              ],
+                            );
+                          });
+               },
+                   child: Text("Şifremi unuttum")),
                 const Spacer(),
-                Consumer<CheckboxModel>(
+                Consumer<LogPageProvider>(
                  builder: (context, textModel, child){
                    return SizedBox(height: 75,width: scrWidth,
                        child: ElevatedButton(onPressed: (){

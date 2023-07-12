@@ -23,7 +23,7 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<CheckboxModel>(create: (_) => CheckboxModel()),
+        ChangeNotifierProvider<LogPageProvider>(create: (_) => LogPageProvider()),
         ChangeNotifierProvider<AvatarModel>(create: (_) => AvatarModel()),
       ],
       child: MyApp(),
