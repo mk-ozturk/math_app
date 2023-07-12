@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:math_app/Pages/OpeningScreen.dart';
+import 'package:math_app/widgets&etc/provider.dart';
+import 'package:provider/provider.dart';
 import '../widgets&etc/colors.dart';
 
 class SignPage extends StatefulWidget {
@@ -32,9 +34,9 @@ class _SignPageState extends State<SignPage> {
 
     void updateData(String selectedOption) {
       setState(() {
-        defaultAvatar = selectedOption;
+        Provider.of<CheckboxModel>(context, listen: false).avatarLink(selectedOption);
+        print(CheckboxModel().ppLink);
       });
-      print(defaultAvatar);
     }
 
     Future<dynamic> registerUser(BuildContext context, String email, String password,String name, String pPhoto) async {
@@ -161,149 +163,156 @@ class _SignPageState extends State<SignPage> {
 
 
 
-    return Scaffold(
-        appBar: AppBar(
-        backgroundColor: theme().themColors[4],
-        title: Text("Üye Ol"),
+    return ChangeNotifierProvider(
+        create: (context)=> CheckboxModel(),
+        child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: theme().themColors[4],
+              title: Text("Üye Ol"),
+            ),
+            body: SingleChildScrollView(
+              child: Container(height: body(scrWidth, scrHeight, appBarHeight),
+                child: Column(
+                  children: [
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        print("tapped");
+                        showModalBottomSheet(
+                          context: context,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
+                          ),
+                          builder: (context) {
+                            return GridView.builder(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                              ),
+                              itemCount: theme().avatars.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(7.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      updateData(theme().avatars[index]);
 
-    ),
-        body: SingleChildScrollView(
-          child: Container(height: body(scrWidth, scrHeight, appBarHeight),
-            child: Column(
-              children: [
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    print("tabbed");
-                    showModalBottomSheet(
-                      context: context,
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(0))),
-                      builder: (context) {
-                        return GridView.builder(
-                            gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                            ),
-                            itemCount:  theme().avatars.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(7.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(context,  theme().avatars[index]);
-                                  },
-                                  child: ClipOval(
-                                    child: Image.asset(
-                                      theme().avatars[index],
+                                      Navigator.pop(context);
+                                    },
+                                    child: ClipOval(
+                                      child: Image.asset(
+                                        theme().avatars[index],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            });
-                      },
-                    ).then((selectedOption) {
-                      if (selectedOption != null) {
-                        updateData(
-                            selectedOption); // Seçime göre değişiklik yapma işlevini çağırma
-                      }
-                    });
-                  },
-                  child: ClipOval(
-                    child: Image.asset(defaultAvatar,
-                        width: 150, height: 150, fit: BoxFit.cover),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: SizedBox(width: (scrWidth-35)/2,
-                        child: TextField(
-                          onChanged: (valueName){
-                            _name=valueName;
-                            print(_name);
+                                );
+                              },
+                            );
                           },
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Ad"
-                          ),),
+                        );
+                      },
+                      child: Consumer<CheckboxModel>(
+                        builder: (context, avatarProvider, child) {
+                          return ClipOval(
+                            child: Image.asset(
+                              avatarProvider.ppLink ,
+                              width: 150,
+                              height: 150,
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        },
                       ),
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: SizedBox(width: (scrWidth-35)/2,
+                            child: TextField(
+                              onChanged: (valueName){
+                                _name=valueName;
+                                print(_name);
+                              },
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: "Ad"
+                              ),),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(width: (scrWidth-35)/2,
+                            child: TextField(
+                              onChanged: (valueSname){
+                                _surname=valueSname;
+                                print(_surname);
+                              },
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: "Soyad"
+                              ),),
+                          ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(width: (scrWidth-35)/2,
-                        child: TextField(
-                          onChanged: (valueSname){
-                            _surname=valueSname;
-                            print(_surname);
-                          },
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Soyad"
-                          ),),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    onChanged: (valueEmail){
-                      _email=valueEmail;
-                    },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "E-Posta"
-                    ),),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    onChanged: (valueId){
-                      _id=valueId;
-                    },
+                      child: TextField(
+                        onChanged: (valueEmail){
+                          _email=valueEmail;
+                        },
                         decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Kullanıcı Adı"
-                    ),),
+                            border: OutlineInputBorder(),
+                            labelText: "E-Posta"
+                        ),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        onChanged: (valueId){
+                          _id=valueId;
+                        },
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Kullanıcı Adı"
+                        ),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        onChanged: (valuePass){
+                          _password=valuePass;
+                        },
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Şifre"
+                        ),),
+                    ),
+
+                    Spacer(),
+                    SizedBox(width:scrWidth,height: 75
+                        ,
+                        child: ElevatedButton(onPressed: (){
+                          String fullname=_name+" "+_surname;
+                          print(fullname);
+
+                          registerUser(context,_email, _password,fullname, defaultAvatar);
+
+
+                        },child: Text("Kayıt Ol"),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: theme().themColors[0],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0.0)
+                              )
+                          ),))
+                  ],
+
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    onChanged: (valuePass){
-                      _password=valuePass;
-                    },
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Şifre"
-                    ),),
-                ),
-
-                Spacer(),
-                SizedBox(width:scrWidth,height: 75
-                    ,
-                    child: ElevatedButton(onPressed: (){
-                      String fullname=_name+" "+_surname;
-                      print(fullname);
-
-                      registerUser(context,_email, _password,fullname, defaultAvatar);
-
-
-                    },child: Text("Kayıt Ol"),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: theme().themColors[0],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0.0)
-                          )
-                      ),))
-              ],
-
-            ),
-          ),
-        ));
+              ),
+            ))
+      );
   }
 }
 
