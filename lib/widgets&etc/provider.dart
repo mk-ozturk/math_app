@@ -4,11 +4,11 @@ class CheckboxModel extends ChangeNotifier {
   bool isChecked = false;
   String _logMail = "";
   String _logPass="";
-  String _ppLink="lib/images/add_icon.png";
+
 
   String get logPass=>_logPass;
   String get logMail => _logMail;
-  String get ppLink => _ppLink;
+
 
   void toggleCheckbox() {
     isChecked = !isChecked;
@@ -27,10 +27,21 @@ class CheckboxModel extends ChangeNotifier {
 
   }
 
+
+}
+
+class AvatarModel extends ChangeNotifier {
+  String _ppLink="lib/images/add_icon.png";
+
+  String get ppLink => _ppLink;
+
   void avatarLink(String value){
+
     _ppLink=value;
     notifyListeners();
+
   }
+
 }
 
 

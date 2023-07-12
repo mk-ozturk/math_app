@@ -21,7 +21,7 @@ class _SignPageState extends State<SignPage> {
     final scrHeight=screen.height;
     final scrWidth=screen.width;
     var appBarHeight=AppBar().preferredSize.height;
-    var defaultAvatar="lib/images/add_icon.png";
+
 
 
     String _id="";
@@ -32,12 +32,7 @@ class _SignPageState extends State<SignPage> {
 
 
 
-    void updateData(String selectedOption) {
-      setState(() {
-        Provider.of<CheckboxModel>(context, listen: false).avatarLink(selectedOption);
-        print(CheckboxModel().ppLink);
-      });
-    }
+
 
     Future<dynamic> registerUser(BuildContext context, String email, String password,String name, String pPhoto) async {
       try {
@@ -192,25 +187,28 @@ class _SignPageState extends State<SignPage> {
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(7.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      updateData(theme().avatars[index]);
-
-                                      Navigator.pop(context);
-                                    },
-                                    child: ClipOval(
-                                      child: Image.asset(
-                                        theme().avatars[index],
-                                      ),
-                                    ),
-                                  ),
+                                  child: Consumer<AvatarModel>(
+                                    builder: (context, avatarProvider, child){
+                                      return GestureDetector(
+                                        onTap: () {
+                                          avatarProvider.avatarLink(theme().avatars[index]);
+                                          print(avatarProvider.ppLink);
+                                          Navigator.pop(context);
+                                        },
+                                        child: ClipOval(
+                                          child: Image.asset(
+                                            theme().avatars[index],
+                                          ),
+                                        ),
+                                      );                                    },
+                                  )
                                 );
                               },
                             );
                           },
                         );
                       },
-                      child: Consumer<CheckboxModel>(
+                      child: Consumer<AvatarModel>(
                         builder: (context, avatarProvider, child) {
                           return ClipOval(
                             child: Image.asset(
@@ -293,20 +291,24 @@ class _SignPageState extends State<SignPage> {
                     Spacer(),
                     SizedBox(width:scrWidth,height: 75
                         ,
-                        child: ElevatedButton(onPressed: (){
-                          String fullname=_name+" "+_surname;
-                          print(fullname);
+                        child: Consumer<AvatarModel>(
+                          builder: (context, avatarProvider, child){
+                            return ElevatedButton(onPressed: (){
+                              String fullname=_name+" "+_surname;
+                              print(fullname);
 
-                          registerUser(context,_email, _password,fullname, defaultAvatar);
+                              registerUser(context,_email, _password,fullname, avatarProvider.ppLink);
 
 
-                        },child: Text("Kayıt Ol"),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: theme().themColors[0],
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0.0)
-                              )
-                          ),))
+                            },child: Text("Kayıt Ol"),
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: theme().themColors[0],
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0.0)
+                                  )
+                              ),);
+                          },
+                        ))
                   ],
 
                 ),
