@@ -227,7 +227,7 @@ class _LogPageState extends State<LogPage> {
                                 onChanged: (value){
                                   _resPass=value;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: "E-posta adresini giriniz"
                                 ),   ),

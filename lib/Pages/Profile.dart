@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:math_app/Pages/OpeningScreen.dart';
 import 'package:math_app/widgets&etc/colors.dart';
+import 'package:provider/provider.dart';
 import '../widgets&etc/FirebaseFuncs.dart';
+import '../widgets&etc/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -60,6 +62,24 @@ class _ProfilePageState extends State<ProfilePage> {
     }
 
 
+    void ppUpdate(String newUrl){
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        // Yeni profil fotoğrafını Firebase Storage'dan aldığınız URL ile güncelleme
+        String newPhotoURL = "yeni_foto_url";
+
+        user.updatePhotoURL(newUrl).then((_) {
+          // update succes
+          print("Profil fotoğrafı güncellendi.");
+        }).catchError((error) {
+          // error message
+          print("Hata: $error");
+        });
+
+
+      }}
+
+
 
 
 
@@ -86,6 +106,60 @@ class _ProfilePageState extends State<ProfilePage> {
           Text(getCurrentUserName().toString(),style: TextStyle(fontSize: 25),),
           Text(getCurrentUserEmail().toString(),style: TextStyle(fontSize: 15),),
           Spacer(flex: 1,),
+          GestureDetector(
+            onTap: (){
+              showModalBottomSheet(
+                context: context,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
+                ),
+                builder: (context) {
+                  return GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                    ),
+                    itemCount: theme().avatars.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                          padding: const EdgeInsets.all(7.0),
+                          child: Consumer<AvatarModel>(
+                            builder: (context, avatarProvider, child){
+                              return GestureDetector(
+                                onTap: () {
+
+                                  print(avatarProvider.ppLink);
+                                  Navigator.pop(context);
+                                },
+                                child: ClipOval(
+                                  child: Image.asset(
+                                    theme().avatars[index],
+                                  ),
+                                ),
+                              );                                    },
+                          )
+                      );
+                    },
+                  );
+                },
+              );
+            },
+            child: const Row(
+              children: [
+                Expanded(child: Card(child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("Fotoğrafı değiştir.",style: TextStyle(fontSize: 20),),
+                    ),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios_rounded)
+                  ],
+                ),
+                )
+                ),
+              ],
+            ),
+          ),
 
            GestureDetector(
              onTap: (){print("working buton");

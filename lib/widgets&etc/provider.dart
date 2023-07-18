@@ -30,9 +30,9 @@ class LogPageProvider extends ChangeNotifier {
 class AvatarModel extends ChangeNotifier {
   String _ppLink="lib/images/add_icon.png";
   var _eMail;
-  var _password;
-  var _name;
-  var _surname;
+  String _password=" ";
+  String _name=" ";
+  String _surname=" ";
 
   String get ppLink => _ppLink;
   String get eMail => _eMail;
