@@ -13,7 +13,7 @@ class VideoFullScreen extends StatefulWidget {
 class _VideoFullScreenState extends State<VideoFullScreen> {
   @override
   Widget build(BuildContext context) {
-    YoutubePlayerController _controller = YoutubePlayerController(
+    YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: 'iLnmTe5Q2Qw',
       flags: const YoutubePlayerFlags(
         autoPlay: true,
@@ -23,12 +23,12 @@ class _VideoFullScreenState extends State<VideoFullScreen> {
 
     return Scaffold(
         appBar: AppBar(
-        backgroundColor: theme().themColors[4],
-    title: Text("Ana Sayfa"),
+        backgroundColor: AppTheme().themColors[4],
+    title: const Text("Ana Sayfa"),
     ),
         body: YoutubePlayerBuilder(
           player: YoutubePlayer(
-            controller: _controller,
+            controller: controller,
           ),
           builder: (context,player){
             return Column(

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:math_app/widgets&etc/colors.dart';
 
-class LessonsLvlPage extends StatefulWidget {
+class LessonPage extends StatefulWidget {
 
 
   @override
-  State<LessonsLvlPage> createState() => _LessonsLvlPageState();
+  State<LessonPage> createState() => _LessonPageState();
   String topicTittle;
 
-   LessonsLvlPage(this.topicTittle);
+   LessonPage(this.topicTittle, {super.key});
 }
 
-class _LessonsLvlPageState extends State<LessonsLvlPage> {
+class _LessonPageState extends State<LessonPage> {
   List<bool> checkBoxList = List.filled(10, false);
 
   @override
   Widget build(BuildContext context) {
     var screen=MediaQuery.of(context).size;
-    final scrHeight=screen.height;
+
     final scrWidth=screen.width;
 
 
@@ -25,7 +25,7 @@ class _LessonsLvlPageState extends State<LessonsLvlPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.topicTittle),
-        backgroundColor: theme().themColors[4],
+        backgroundColor: AppTheme().themColors[4],
       ),
       body: ListView.builder(
         itemCount: 10, // Liste öğelerinin sayısı

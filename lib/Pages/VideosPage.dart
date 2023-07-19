@@ -6,7 +6,7 @@ class VideoPage extends StatefulWidget {
 
   String videoTopicName;
 
-  VideoPage(this.videoTopicName);
+  VideoPage(this.videoTopicName, {super.key});
 
 
   @override
@@ -17,9 +17,9 @@ class _VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
 
-    YoutubePlayerController _controller = YoutubePlayerController(
+    YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: "p2JU8tumYrI",
-      flags: YoutubePlayerFlags(
+      flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: true,
       ),
@@ -28,7 +28,7 @@ class _VideoPageState extends State<VideoPage> {
     return  Scaffold(
         body: YoutubePlayerBuilder(
           player: YoutubePlayer(
-            controller: _controller,
+            controller: controller,
           ),
           builder: (context, player){
             return Center(
@@ -36,11 +36,11 @@ class _VideoPageState extends State<VideoPage> {
                   children: [
                     AppBar(
                       title: Text(widget.videoTopicName),
-                      backgroundColor: theme().themColors[4],
+                      backgroundColor: AppTheme().themColors[4],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     player,
-                    Spacer()
+                    const Spacer()
                   ],)
             );
           }          ,

@@ -14,9 +14,9 @@ class NotfCallender extends StatelessWidget {
     final scrWidth=screen.width;
     return
       SizedBox(height: scrHeight/4,width: scrWidth-10,
-        child: Card(color: theme().themColors[5],
+        child: Card(color: AppTheme().themColors[5],
           child:
-          Center(
+          const Center(
             child: Column(children: [
               Text(("gelecek bildirimler görülecek"))
             ],),
@@ -39,13 +39,11 @@ class WelcomeSide extends StatelessWidget {
             height: 150,
             fit: BoxFit.cover,),
         ),
-        Container(child:
-          Column(
-            children: [
-            Text("Hoş Geldin"),
-            Text(getCurrentUserName().toString())
-          ],),
-        )
+        Column(
+          children: [
+          const Text("Hoş Geldin"),
+          Text(getCurrentUserName().toString())
+        ],)
       ],
     );
   }
@@ -70,9 +68,9 @@ class _VideoSuggestionState extends State<VideoSuggestion> {
   @override
   Widget build(BuildContext context) {
 
-    YoutubePlayerController _controller = YoutubePlayerController(
+    YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: '36fta1dYCjY',
-      flags: YoutubePlayerFlags(
+      flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: true,
 
@@ -81,9 +79,9 @@ class _VideoSuggestionState extends State<VideoSuggestion> {
     return CarouselSlider(
       options: CarouselOptions(height: 200.0, aspectRatio: 16/9, autoPlay: true),
       items: ["36fta1dYCjY","p2JU8tumYrI"].map((i) {
-        YoutubePlayerController _controller = YoutubePlayerController(
-          initialVideoId: "$i",
-          flags: YoutubePlayerFlags(
+        YoutubePlayerController controller0 = YoutubePlayerController(
+          initialVideoId: i,
+          flags: const YoutubePlayerFlags(
             autoPlay: false,
             mute: true,
           ),
@@ -92,15 +90,15 @@ class _VideoSuggestionState extends State<VideoSuggestion> {
           builder: (BuildContext context) {
             return Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 3.0),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.symmetric(horizontal: 3.0),
+                decoration: const BoxDecoration(
                    color: Colors.lightBlueAccent
                 ),
-                child: YoutubePlayer(controller: _controller,
+                child: YoutubePlayer(controller: controller0,
 
                   showVideoProgressIndicator: true,
                   progressIndicatorColor: Colors.amber,
-                  progressColors: ProgressBarColors(
+                  progressColors: const ProgressBarColors(
                       playedColor: Colors.amber,
                       handleColor: Colors.amberAccent
                   ),

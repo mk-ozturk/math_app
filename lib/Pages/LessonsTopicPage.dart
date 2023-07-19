@@ -15,15 +15,15 @@ class _LessonsTopicPageState extends State<LessonsTopicPage> {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        backgroundColor: theme().themColors[4],
-        title: Text("Konular"),
+        backgroundColor: AppTheme().themColors[4],
+        title: const Text("Konular"),
       ),
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (contex)=>LessonsLvlPage(index.toString())));
+              Navigator.push(context, MaterialPageRoute(builder: (contex)=>LessonPage(index.toString())));
               print("pushed");
             },
             child: Card(

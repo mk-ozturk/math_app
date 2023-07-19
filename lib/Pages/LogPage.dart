@@ -6,6 +6,8 @@ import 'package:math_app/widgets&etc/provider.dart';
 import 'package:provider/provider.dart';
 
 class LogPage extends StatefulWidget {
+  const LogPage({super.key});
+
 
 
   @override
@@ -19,7 +21,7 @@ class _LogPageState extends State<LogPage> {
     final scrHeight=screen.height;
     final scrWidth=screen.width;
     var appBarHeight=AppBar().preferredSize.height;
-    String _resPass="";
+    String resPass="";
 
 
 
@@ -32,7 +34,7 @@ class _LogPageState extends State<LogPage> {
           password: password,
         );
         User? user = userCredential.user;
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>BottomBar()), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const BottomBar()), (route) => false);
 
       } catch (e) {
         if (e is FirebaseAuthException){
@@ -48,9 +50,9 @@ class _LogPageState extends State<LogPage> {
 
                 content: Padding(
                   padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                  child: Text(eMessage,style: const TextStyle(fontSize: 20),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ),
             );
@@ -62,9 +64,9 @@ class _LogPageState extends State<LogPage> {
 
                 content: Padding(
                   padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                  child: Text(eMessage,style: const TextStyle(fontSize: 20),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ),
             );
@@ -76,9 +78,9 @@ class _LogPageState extends State<LogPage> {
 
                 content: Padding(
                   padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                  child: Text(eMessage,style: const TextStyle(fontSize: 20),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ),
             );
@@ -91,9 +93,9 @@ class _LogPageState extends State<LogPage> {
 
                 content: Padding(
                   padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                  child: Text(eMessage,style: TextStyle(fontSize: 18),),
+                  child: Text(eMessage,style: const TextStyle(fontSize: 18),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ),
             );
@@ -106,9 +108,9 @@ class _LogPageState extends State<LogPage> {
 
                 content: Padding(
                   padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                  child: Text(eMessage,style: const TextStyle(fontSize: 20),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ),
             );
@@ -124,10 +126,10 @@ class _LogPageState extends State<LogPage> {
         print("$email adresine mail gönderildi");
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
 
             content: Padding(
-              padding: const EdgeInsets.only(top: 12.0,bottom: 12.4),
+              padding:  EdgeInsets.only(top: 12.0,bottom: 12.4),
               child: Text("Şifreyi sıfırlamak için mail adresini kontrol ediniz.",style: TextStyle(fontSize: 15),),
             ),
             backgroundColor: Colors.green,
@@ -139,17 +141,16 @@ class _LogPageState extends State<LogPage> {
         if (e is FirebaseAuthException){
           String errorMessage = e.message!;
           String errorCode = e.code;
-          String eMessage="";
           print(errorCode);
           print(errorMessage);
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
 
-                content: Padding(
-                  padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+                content: const Padding(
+                  padding: EdgeInsets.only(top: 10.0,bottom: 10),
                   child: Text("E-posta adresi bulunamadı",style: TextStyle(fontSize: 20),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ));
         }
@@ -174,14 +175,14 @@ class _LogPageState extends State<LogPage> {
       create: (context)=> LogPageProvider(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: theme().themColors[4],
-          title: Text("Math App"),
+          backgroundColor: AppTheme().themColors[4],
+          title: const Text("Math App"),
         ),
         body: SingleChildScrollView(
-          child: Container(height: body(scrWidth, scrHeight, appBarHeight),
+          child: SizedBox(height: body(scrWidth, scrHeight, appBarHeight),
             child: Column(
               children: [
-                Spacer(),
+                const Spacer(),
                 Image.asset(width: 150,height: 150,"lib/images/icon.png",),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -192,7 +193,7 @@ class _LogPageState extends State<LogPage> {
                          providerMail.textMail(value);
                          print(providerMail.logMail);
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "E-posta"
                         ),);
@@ -208,7 +209,7 @@ class _LogPageState extends State<LogPage> {
                           print(providerPass.logPass);
                         },
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Şifre"
                         ),);
@@ -225,7 +226,7 @@ class _LogPageState extends State<LogPage> {
                             return AlertDialog(
                               content: TextField(
                                 onChanged: (value){
-                                  _resPass=value;
+                                  resPass=value;
                                 },
                                 decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
@@ -238,17 +239,17 @@ class _LogPageState extends State<LogPage> {
                                       onPressed: () {
                                         print('Onaylandı');
                                         print("respas_work");
-                                        resPassword(_resPass);
+                                        resPassword(resPass);
 
                                       },
-                                      child: Text('Şifreyi sıfırla'),
+                                      child: const Text('Şifreyi sıfırla'),
                                     ),
                                     TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                         print('Reddedildi');
                                       },
-                                      child: Text('Geri'),
+                                      child: const Text('Geri'),
                                     ),
 
                                   ],
@@ -257,7 +258,7 @@ class _LogPageState extends State<LogPage> {
                             );
                           });
                },
-                   child: Text("Şifremi unuttum")),
+                   child: const Text("Şifremi unuttum")),
                 const Spacer(),
                 Consumer<LogPageProvider>(
                  builder: (context, textModel, child){
@@ -268,14 +269,14 @@ class _LogPageState extends State<LogPage> {
                          String logPass=textModel.logPass;
                          signInUser(context,logMail, logPass);
                        },
-
-                           child: (Text("Giriş Yap")),
                            style: ElevatedButton.styleFrom(
-                               backgroundColor: theme().themColors[1],
+                               backgroundColor: AppTheme().themColors[1],
                                shape: RoundedRectangleBorder(
                                    borderRadius: BorderRadius.circular(0.0)
                                )
-                           )));
+                           ),
+
+                           child: (const Text("Giriş Yap"))));
                  },
 
                 )

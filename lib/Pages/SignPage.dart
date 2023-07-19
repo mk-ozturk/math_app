@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../widgets&etc/colors.dart';
 
 class SignPage extends StatefulWidget {
+  const SignPage({super.key});
+
 
 
   @override
@@ -25,10 +27,6 @@ class _SignPageState extends State<SignPage> {
 
 
     String _id="";
-    String _surname="";
-    String _name="";
-    String _email="";
-    String _password="";
 
 
 
@@ -50,7 +48,7 @@ class _SignPageState extends State<SignPage> {
         }
 
         print(pPhoto);
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>OpeningScreen()), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const OpeningScreen()), (route) => false);
 
         return ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -82,9 +80,9 @@ class _SignPageState extends State<SignPage> {
 
                 content: Padding(
                   padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                  child: Text(eMessage,style: const TextStyle(fontSize: 20),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ),
             );
@@ -96,9 +94,9 @@ class _SignPageState extends State<SignPage> {
 
                 content: Padding(
                   padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                  child: Text(eMessage,style: const TextStyle(fontSize: 20),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ),
             );
@@ -113,9 +111,9 @@ class _SignPageState extends State<SignPage> {
 
                 content: Padding(
                   padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                  child: Text(eMessage,style: const TextStyle(fontSize: 20),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ),
             );
@@ -130,9 +128,9 @@ class _SignPageState extends State<SignPage> {
 
                 content: Padding(
                   padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                  child: Text(eMessage,style: TextStyle(fontSize: 20),),
+                  child: Text(eMessage,style: const TextStyle(fontSize: 20),),
                 ),
-                backgroundColor: theme().themColors[6],
+                backgroundColor: AppTheme().themColors[6],
 
               ),
             );
@@ -162,20 +160,20 @@ class _SignPageState extends State<SignPage> {
         create: (context)=> LogPageProvider(),
         child: Scaffold(
             appBar: AppBar(
-              backgroundColor: theme().themColors[4],
-              title: Text("Üye Ol"),
+              backgroundColor: AppTheme().themColors[4],
+              title: const Text("Üye Ol"),
             ),
             body: SingleChildScrollView(
-              child: Container(height: body(scrWidth, scrHeight, appBarHeight),
+              child: SizedBox(height: body(scrWidth, scrHeight, appBarHeight),
                 child: Column(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     GestureDetector(
                       onTap: () {
                         print("tapped");
                         showModalBottomSheet(
                           context: context,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
                           ),
                           builder: (context) {
@@ -183,7 +181,7 @@ class _SignPageState extends State<SignPage> {
                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                               ),
-                              itemCount: theme().avatars.length,
+                              itemCount: AppTheme().avatars.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(7.0),
@@ -191,13 +189,13 @@ class _SignPageState extends State<SignPage> {
                                     builder: (context, avatarProvider, child){
                                       return GestureDetector(
                                         onTap: () {
-                                          avatarProvider.avatarLink(theme().avatars[index]);
+                                          avatarProvider.avatarLink(AppTheme().avatars[index]);
                                           print(avatarProvider.ppLink);
                                           Navigator.pop(context);
                                         },
                                         child: ClipOval(
                                           child: Image.asset(
-                                            theme().avatars[index],
+                                            AppTheme().avatars[index],
                                           ),
                                         ),
                                       );                                    },
@@ -233,7 +231,7 @@ class _SignPageState extends State<SignPage> {
                                     signModel.nameText(valueName);
                                     print(signModel.name);
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       border: OutlineInputBorder(),
                                       labelText: "Ad"
                                   ),);
@@ -251,7 +249,7 @@ class _SignPageState extends State<SignPage> {
                                     signModel.surnameText(valueSurname);
                                     print(signModel.surname);
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       border: OutlineInputBorder(),
                                       labelText: "Soyad"
                                   ),);
@@ -270,7 +268,7 @@ class _SignPageState extends State<SignPage> {
                               signModel.emailText(value);
                               print(signModel.eMail);
                             },
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "E-posta"
                             ),);
@@ -283,7 +281,7 @@ class _SignPageState extends State<SignPage> {
                         onChanged: (valueId){
                           _id=valueId;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Kullanıcı Adı"
                         ),),
@@ -298,7 +296,7 @@ class _SignPageState extends State<SignPage> {
                               print(signModel.password);
                             },
                             obscureText: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "Şifre"
                             ),);
@@ -306,25 +304,25 @@ class _SignPageState extends State<SignPage> {
                       ),
                     ),
 
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(width:scrWidth,height: 75
                         ,
                         child: Consumer<AvatarModel>(
                           builder: (context, avatarProvider, child){
                             return ElevatedButton(onPressed: (){
-                              String fullname=avatarProvider.name+" "+avatarProvider.surname;
+                              String fullname="${avatarProvider.name} ${avatarProvider.surname}";
                               print(fullname);
 
                               registerUser(context,avatarProvider.eMail, avatarProvider.password,fullname, avatarProvider.ppLink);
 
 
-                            },child: Text("Kayıt Ol"),
+                            },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: theme().themColors[0],
+                                  backgroundColor: AppTheme().themColors[0],
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(0.0)
                                   )
-                              ),);
+                              ),child: const Text("Kayıt Ol"),);
                           },
                         ))
                   ],

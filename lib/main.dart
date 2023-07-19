@@ -25,8 +25,9 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider<LogPageProvider>(create: (_) => LogPageProvider()),
         ChangeNotifierProvider<AvatarModel>(create: (_) => AvatarModel()),
+        ChangeNotifierProvider<FirebaseModel>(create: (_) => FirebaseModel()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -46,10 +47,10 @@ class MyApp extends StatelessWidget {
 
       if (user == null) {
         print('Kullanıcı oturumu kapattı');
-        return OpeningScreen();
+        return const OpeningScreen();
       } else {
         print('Kullanıcı oturumu açtı: ${user.uid}');
-        return BottomBar();
+        return const BottomBar();
       }
     }
 
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(170, 216, 230, 1.0)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromRGBO(170, 216, 230, 1.0)),
         useMaterial3: true,
       ),
       home: Scaffold(
@@ -70,7 +71,7 @@ class MyApp extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<Widget?> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
 
-              return  CircularProgressIndicator();
+              return  const CircularProgressIndicator();
 
             } else {
               if (snapshot.hasError) {

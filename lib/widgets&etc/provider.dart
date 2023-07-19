@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:math_app/widgets&etc/FirebaseFuncs.dart';
 
 class LogPageProvider extends ChangeNotifier {
   bool isChecked = false;
@@ -29,7 +31,7 @@ class LogPageProvider extends ChangeNotifier {
 
 class AvatarModel extends ChangeNotifier {
   String _ppLink="lib/images/add_icon.png";
-  var _eMail;
+  String _eMail="";
   String _password=" ";
   String _name=" ";
   String _surname=" ";
@@ -64,12 +66,35 @@ class AvatarModel extends ChangeNotifier {
     _surname=value;
     notifyListeners();
   }
-
-
-
-
-
 }
 
 
 
+
+class FirebaseModel extends ChangeNotifier {
+  String _ppUrl = getCurrentUserProfilePhoto().toString();
+
+
+  String get ppUrl => _ppUrl;
+
+  void firebasePP(String newUrl) {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+
+
+
+      user.updatePhotoURL(newUrl).then((_) {
+        // update succes
+        print("Profil fotoğrafı güncellendi.");
+        _ppUrl=newUrl;
+        notifyListeners();
+        print(_ppUrl);
+      }).catchError((error) {
+        // error message
+        print("Hata: $error");
+      });
+    }
+  }
+
+
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:math_app/widgets&etc/HomaPageWidgets.dart';
 import 'package:math_app/widgets&etc/colors.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -14,10 +15,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: theme().themColors[4],
-        title: Text("Ana Sayfa"),
+        backgroundColor: AppTheme().themColors[4],
+        title: const Text("Ana Sayfa"),
       ),
-      body: Column(
+      body: const Column(
         children: [
           WelcomeSide(),
           NotfCallender(),

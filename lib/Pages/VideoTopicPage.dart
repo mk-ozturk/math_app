@@ -15,7 +15,7 @@ class _VideoTopicPageState extends State<VideoTopicPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Videolar"),
-        backgroundColor: theme().themColors[4]
+        backgroundColor: AppTheme().themColors[4]
       ),
       body: ListView.builder(
         itemCount: 10, // Liste öğelerinin sayısı

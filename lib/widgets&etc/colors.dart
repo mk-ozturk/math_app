@@ -2,15 +2,15 @@
 
 import 'package:flutter/material.dart';
 
-class theme {
+class AppTheme {
  List themColors=[
-           Color.fromRGBO(137, 189, 211, 1.0),
-           Color.fromRGBO(227, 227, 227, 1.0),
-           Color.fromRGBO(154, 212, 223, 1.0),
-           Color.fromRGBO(201, 201, 201, 1.0),
-           Color.fromRGBO(227, 227, 227, 1.0),
-           Color.fromRGBO(156, 227, 255, 1.0),
-            Color.fromRGBO(208, 52, 44, 1.0),
+           const Color.fromRGBO(137, 189, 211, 1.0),
+           const Color.fromRGBO(227, 227, 227, 1.0),
+           const Color.fromRGBO(154, 212, 223, 1.0),
+           const Color.fromRGBO(201, 201, 201, 1.0),
+           const Color.fromRGBO(227, 227, 227, 1.0),
+           const Color.fromRGBO(156, 227, 255, 1.0),
+            const Color.fromRGBO(208, 52, 44, 1.0),
    ];
 
  var avatars= [
