@@ -185,7 +185,7 @@ class _SignPageState extends State<SignPage> {
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(7.0),
-                                  child: Consumer<AvatarModel>(
+                                  child: Consumer<SignPageModel>(
                                     builder: (context, avatarProvider, child){
                                       return GestureDetector(
                                         onTap: () {
@@ -206,7 +206,7 @@ class _SignPageState extends State<SignPage> {
                           },
                         );
                       },
-                      child: Consumer<AvatarModel>(
+                      child: Consumer<SignPageModel>(
                         builder: (context, avatarProvider, child) {
                           return ClipOval(
                             child: Image.asset(
@@ -224,7 +224,7 @@ class _SignPageState extends State<SignPage> {
                         Padding(
                           padding: const EdgeInsets.all(8),
                           child: SizedBox(width: (scrWidth-35)/2,
-                            child: Consumer<AvatarModel>(
+                            child: Consumer<SignPageModel>(
                               builder: (context, signModel, child){
                                 return TextField(
                                   onChanged: (valueName){
@@ -242,7 +242,7 @@ class _SignPageState extends State<SignPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(width: (scrWidth-35)/2,
-                            child: Consumer<AvatarModel>(
+                            child: Consumer<SignPageModel>(
                               builder: (context, signModel, child){
                                 return TextField(
                                   onChanged: (valueSurname){
@@ -261,7 +261,7 @@ class _SignPageState extends State<SignPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Consumer<AvatarModel>(
+                      child: Consumer<SignPageModel>(
                         builder: (context, signModel, child){
                           return TextField(
                             onChanged: (value){
@@ -288,7 +288,7 @@ class _SignPageState extends State<SignPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Consumer<AvatarModel>(
+                      child: Consumer<SignPageModel>(
                         builder: (context, signModel, chid){
                           return TextField(
                             onChanged: (value){
@@ -307,7 +307,7 @@ class _SignPageState extends State<SignPage> {
                     const Spacer(),
                     SizedBox(width:scrWidth,height: 75
                         ,
-                        child: Consumer<AvatarModel>(
+                        child: Consumer<SignPageModel>(
                           builder: (context, avatarProvider, child){
                             return ElevatedButton(onPressed: (){
                               String fullname="${avatarProvider.name} ${avatarProvider.surname}";

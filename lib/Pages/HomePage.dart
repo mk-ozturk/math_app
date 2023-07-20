@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:math_app/widgets&etc/HomaPageWidgets.dart';
 import 'package:math_app/widgets&etc/colors.dart';
+import 'package:math_app/widgets&etc/provider.dart';
+import 'package:provider/provider.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -13,18 +15,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return ChangeNotifierProvider(create: (context)=>FirebaseModel(),
+    child: Scaffold(
+        appBar: AppBar(
         backgroundColor: AppTheme().themColors[4],
-        title: const Text("Ana Sayfa"),
-      ),
-      body: const Column(
-        children: [
-          WelcomeSide(),
-          NotfCallender(),
-          //VideoSuggestion(),
-        ],
-      ),
-    );
+    title: const Text("Ana Sayfa"),
+    ),
+    body: const Column(
+    children: [
+    WelcomeSide(),
+    NotfCallender(),
+    //VideoSuggestion(),
+    ],
+    ),
+    ),);
   }
 }

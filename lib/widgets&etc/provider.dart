@@ -29,7 +29,7 @@ class LogPageProvider extends ChangeNotifier {
 
 }
 
-class AvatarModel extends ChangeNotifier {
+class SignPageModel extends ChangeNotifier {
   String _ppLink="lib/images/add_icon.png";
   String _eMail="";
   String _password=" ";
@@ -74,27 +74,10 @@ class AvatarModel extends ChangeNotifier {
 class FirebaseModel extends ChangeNotifier {
   String _ppUrl = getCurrentUserProfilePhoto().toString();
 
-
   String get ppUrl => _ppUrl;
 
-  void firebasePP(String newUrl) {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-
-
-
-      user.updatePhotoURL(newUrl).then((_) {
-        // update succes
-        print("Profil fotoğrafı güncellendi.");
-        _ppUrl=newUrl;
-        notifyListeners();
-        print(_ppUrl);
-      }).catchError((error) {
-        // error message
-        print("Hata: $error");
-      });
-    }
+  void firebasePP(String avatarUrl) {
+    _ppUrl = avatarUrl;
+    notifyListeners();
   }
-
-
 }

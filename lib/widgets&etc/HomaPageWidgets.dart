@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:math_app/widgets&etc/FirebaseFuncs.dart';
+import 'package:math_app/widgets&etc/provider.dart';
+import 'package:provider/provider.dart';
 import 'colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -31,21 +33,24 @@ class WelcomeSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ClipOval(
-          child: Image.asset(getCurrentUserProfilePhoto().toString(),
-            width: 150,
-            height: 150,
-            fit: BoxFit.cover,),
-        ),
-        Column(
-          children: [
-          const Text("Hoş Geldin"),
-          Text(getCurrentUserName().toString())
-        ],)
-      ],
-    );
+    return Consumer<FirebaseModel>(
+        builder: (context,avatarModel, child ){
+          return Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipOval(
+                child: Image.asset(avatarModel.ppUrl,
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,),
+              ),
+              Column(
+                children: [
+                  const Text("Hoş Geldin"),
+                  Text(getCurrentUserName().toString())
+                ],)
+            ],
+          );
+        });
   }
 }
 

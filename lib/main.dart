@@ -24,7 +24,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<LogPageProvider>(create: (_) => LogPageProvider()),
-        ChangeNotifierProvider<AvatarModel>(create: (_) => AvatarModel()),
+        ChangeNotifierProvider<SignPageModel>(create: (_) => SignPageModel()),
         ChangeNotifierProvider<FirebaseModel>(create: (_) => FirebaseModel()),
       ],
       child: const MyApp(),
