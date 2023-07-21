@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:math_app/widgets&etc/FirebaseFuncs.dart';
 import 'package:math_app/widgets&etc/provider.dart';
 import 'package:provider/provider.dart';
-
-
 import '../Pages/OpeningScreen.dart';
 import 'colors.dart';
 
@@ -25,6 +23,7 @@ class _bottomSheetCardState extends State<bottomSheetCard> {
         print("Profil fotoğrafı güncellendi.");
         // _ppUrl değişkenini güncelle
         Provider.of<FirebaseModel>(context, listen: false).firebasePP(newUrl);
+        Provider.of<FirebaseModel>(context, listen: false).homePpp(newUrl);
       }).catchError((error) {
         // error message
         print("Hata: $error");
@@ -58,13 +57,13 @@ class _bottomSheetCardState extends State<bottomSheetCard> {
                   padding: const EdgeInsets.all(7.0),
                   child: GestureDetector(
                     onTap: () {
-                      ppUpdate(avatar); // Seçilen fotoğrafı güncelle
+                      ppUpdate(avatar);
                       Navigator.pop(context);
                     },
                     child: ClipOval(
                       child: Image.asset(avatar),
                     ),
-                  ),
+                  )
                 );
               },
             );
@@ -257,17 +256,12 @@ class profileInfo extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Consumer<FirebaseModel>(
-            builder: (context, avatarProvider, child) {
-              return ClipOval(
-                child: Image.asset(avatarProvider.ppUrl,
-                  width: 150,
-                  height: 150,
-                  fit: BoxFit.cover,),
-              );
-
-            },
-          ),
+          child: ClipOval(
+            child: Image.asset(Provider.of<FirebaseModel>(context).ppUrl,
+              width: 150,
+              height: 150,
+              fit: BoxFit.cover,),
+          )
         ),
         Text(getCurrentUserName().toString(),style: const TextStyle(fontSize: 25),),
         Text(getCurrentUserEmail().toString(),style: const TextStyle(fontSize: 15),),

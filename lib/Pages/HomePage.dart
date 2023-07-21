@@ -15,19 +15,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (context)=>FirebaseModel(),
-    child: Scaffold(
-        appBar: AppBar(
+    return  Scaffold(
+      appBar: AppBar(
         backgroundColor: AppTheme().themColors[4],
-    title: const Text("Ana Sayfa"),
-    ),
-    body: const Column(
-    children: [
-    WelcomeSide(),
-    NotfCallender(),
-    //VideoSuggestion(),
-    ],
-    ),
-    ),);
+        title: const Text("Ana Sayfa"),
+      ),
+      body: const Column(
+        children: [
+          WelcomeSide(),
+          NotfCallender(),
+          //VideoSuggestion(),
+        ],
+      ),
+    );
   }
 }

@@ -33,24 +33,30 @@ class WelcomeSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FirebaseModel>(
-        builder: (context,avatarModel, child ){
-          return Row(mainAxisAlignment: MainAxisAlignment.center,
+    return ChangeNotifierProvider(
+      create:(context)=>FirebaseModel(),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Consumer<FirebaseModel>(
+            builder: (context, avatarModel, child){
+              return
+                ClipOval(
+                  //burası çalışmıyor düzelecek
+                  child: Image.asset(avatarModel.ppUrl,
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.cover,),
+                );
+            },
+          ),
+          Column(
             children: [
-              ClipOval(
-                child: Image.asset(avatarModel.ppUrl,
-                  width: 150,
-                  height: 150,
-                  fit: BoxFit.cover,),
-              ),
-              Column(
-                children: [
-                  const Text("Hoş Geldin"),
-                  Text(getCurrentUserName().toString())
-                ],)
-            ],
-          );
-        });
+              const Text("Hoş Geldin"),
+              Text(getCurrentUserName().toString())
+            ],)
+        ],
+      ),
+    );
   }
 }
 

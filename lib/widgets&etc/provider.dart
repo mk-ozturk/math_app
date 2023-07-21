@@ -73,11 +73,21 @@ class SignPageModel extends ChangeNotifier {
 
 class FirebaseModel extends ChangeNotifier {
   String _ppUrl = getCurrentUserProfilePhoto().toString();
+  String _homaPp=getCurrentUserProfilePhoto().toString();
 
   String get ppUrl => _ppUrl;
+  String get homePp => _homaPp;
+
+  void homePpp(String value){
+    _homaPp=value;
+    notifyListeners();
+
+  }
 
   void firebasePP(String avatarUrl) {
     _ppUrl = avatarUrl;
     notifyListeners();
   }
 }
+
+
