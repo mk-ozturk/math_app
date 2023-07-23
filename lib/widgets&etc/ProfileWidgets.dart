@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:math_app/widgets&etc/FirebaseFuncs.dart';
 import 'package:math_app/widgets&etc/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../Pages/OpeningScreen.dart';
 import 'colors.dart';
 
@@ -272,23 +273,14 @@ class profileInfo extends StatelessWidget {
 
 
 
-class feedBack extends StatefulWidget {
+class feedBack extends StatelessWidget {
   const feedBack({super.key});
 
   @override
-  State<feedBack> createState() => _feedBackState();
-}
-
-class _feedBackState extends State<feedBack> {
-
-
-  @override
   Widget build(BuildContext context) {
-
-
     return GestureDetector(
       onTap: (){
-
+          launchUrl(Uri.parse("mailto:kemal7991@hotmail.com"));
       },
       child: const Row(
         children: [

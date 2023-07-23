@@ -18,10 +18,10 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     List<Widget> _buildScreens() {
       return [
-        HomePage(),
-        LessonsTopicPage(),
-        VideoTopicPage(),
-        ProfilePage(),
+        const HomePage(),
+        const LessonsTopicPage(),
+        const VideoTopicPage(),
+        const ProfilePage(),
 
 
 
@@ -31,35 +31,35 @@ class _BottomBarState extends State<BottomBar> {
     List<PersistentBottomNavBarItem> _navBarsItems() {
       return [
         PersistentBottomNavBarItem(
-          icon: Icon(CupertinoIcons.home),
+          icon: const Icon(CupertinoIcons.home),
           title: ("Ana Sayfa"),
           activeColorPrimary: CupertinoColors.activeBlue,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
         PersistentBottomNavBarItem(
-          icon: Icon(CupertinoIcons.book),
+          icon: const Icon(CupertinoIcons.book),
           title: ("Dersler"),
           activeColorPrimary: CupertinoColors.activeBlue,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),PersistentBottomNavBarItem(
-          icon: Icon(Icons.video_collection_outlined),
+          icon: const Icon(Icons.video_collection_outlined),
           title: ("Videolar"),
           activeColorPrimary: CupertinoColors.activeBlue,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),PersistentBottomNavBarItem(
-          icon: Icon(CupertinoIcons.profile_circled),
+          icon: const Icon(CupertinoIcons.profile_circled),
           title: ("Profil"),
           activeColorPrimary: CupertinoColors.activeGreen,
           inactiveColorPrimary: CupertinoColors.systemGreen,
         ),
       ];
     }
-    PersistentTabController _controller;
+    PersistentTabController controller;
 
-    _controller = PersistentTabController(initialIndex: 0);
+    controller = PersistentTabController(initialIndex: 0);
     return PersistentTabView(
       context,
-      controller: _controller,
+      controller: controller,
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
@@ -74,11 +74,11 @@ class _BottomBarState extends State<BottomBar> {
       ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties( // Navigation Bar's items animation properties.
+      itemAnimationProperties: const ItemAnimationProperties( // Navigation Bar's items animation properties.
         duration: Duration(milliseconds: 200),
         curve: Curves.ease,
       ),
-      screenTransitionAnimation: ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
+      screenTransitionAnimation: const ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
         animateTabTransition: true,
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
