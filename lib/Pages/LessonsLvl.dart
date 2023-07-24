@@ -40,7 +40,7 @@ class _LessonPageState extends State<LessonPage> {
                   ),
                 ),
                 Checkbox(value: checkBoxList[index], onChanged: (bool? value){
-                  print("checked");
+                  print("checke");
                   setState(() {
                     checkBoxList[index]=value ?? false;
                   });
