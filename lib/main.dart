@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       final user = FirebaseAuth.instance.currentUser;
 
       if (user == null) {
-        print('Kullanıcı oturumu kapattı');
+        print('Kullanıcı oturumu kapalıgi');
         return const OpeningScreen();
       } else {
         print('Kullanıcı oturumu açtı: ${user.uid}');
