@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:math_app/widgets&etc/FirebaseFuncs.dart';
+import 'package:math_app/widgets&etc/NotificationDemo.dart';
 import 'package:math_app/widgets&etc/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -301,6 +302,21 @@ class feedBack extends StatelessWidget {
     );
   }
 }
+
+
+class notfDemo extends StatelessWidget {
+  const notfDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  ElevatedButton(onPressed: (){
+      NotificationService()
+          .showNotification(title: "demo",body: "works");
+    },
+        child: Text("demo notf"));
+  }
+}
+
 
 
 

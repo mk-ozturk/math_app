@@ -39,6 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
             passReset(),
             feedBack(),
             Spacer(flex: 4,),
+            notfDemo(),
             exit()
           ],
           )),
